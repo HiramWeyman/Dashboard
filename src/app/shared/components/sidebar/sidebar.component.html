@@ -1,0 +1,46 @@
+<mat-nav-list>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+        <mat-icon>pages</mat-icon> Dashboard
+    </a>
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader><strong>Algun nombre categoría</strong></h2>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>folder_open</mat-icon>Publicaciones
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/"><mat-icon>label_important</mat-icon>Nota Principal</a>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/"><mat-icon>label_important</mat-icon>Otra Notas</a>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>payment</mat-icon>Pagos
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts"><mat-icon>payment</mat-icon> Servicios</a>
+    </mat-expansion-panel>
+    
+    
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Herramientas</h2>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+        <mat-icon>import_contacts</mat-icon>
+        Contactos
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+        <mat-icon>contact_phone</mat-icon>
+        Telefonos
+    </a>
+
+    <mat-divider></mat-divider>
+
+</mat-nav-list>

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { DefaultModule } from './modules/default/default.module';
+import { ServicesModule } from './services/services.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DefaultModule } from './modules/default/default.module';
     DefaultModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServicesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

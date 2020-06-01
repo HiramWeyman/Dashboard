@@ -25,11 +25,7 @@
                                     <div class="col-lg-12">
                                         <select formControlName="tipoUsuario" class="form-control" (change)="Hidden($event.target.value);" [class.is-invalid]="tipoUsuarioNovalido">
                                             <option selected disabled value="">- Selecciona un tipo de usuario -</option>
-                                            <option value="10">ALUMNOS UJED</option>
-                                            <option value="40">ESCUELAS INCORPORADAS</option>
-                                            <option value="20">PERSONAL UJED</option>
-                                            <option value="50">PUBLICO EN GENERAL</option>
-                                            <option value="30">UNIDADES ACADEMICAS UJED</option>
+                                            <option *ngFor="let t of ttipouser" value="{{ t.tipo_userid }}">{{ t.tipo_descrip }}</option>
                                         </select>
                                         <small *ngIf="tipoUsuarioNovalido" class="text-danger">
                                             Selecciona un tipo de usuario
@@ -38,7 +34,7 @@
                                     <div class="col-lg-12" *ngIf="!isHidden">
                                         <select formControlName="nivelUres" class="form-control" [class.is-invalid]="nivelUresNovalido">
                                             <option selected disabled value="">- Selecciona un nivel academico -</option>
-                                            <option value="10">LICENCIATURA</option>
+                                            <option *ngFor="let tn of tnivelures" value="{{ tn.nive_nivel }}">{{ tn.nive_descrip }}</option>
                                             <option value="40">DIRECCION</option>
                                             <option value="20">POSGRADO</option>
                                             <option value="30">MEDIA SUPERIOR</option>

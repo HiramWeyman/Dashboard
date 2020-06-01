@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ValidadoresService } from '../../services/validadores.service';
+import { RegistrarService } from 'src/app/services/services.index';
+import { Ttipouser } from './ttipouser';
+import { Tnivelures } from './tnivelures';
 
 @Component({
   selector: 'app-registrar',
@@ -15,11 +18,30 @@ export class RegistrarComponent implements OnInit {
 
   isHidden = true
 
-  constructor( private fb: FormBuilder, private validadores: ValidadoresService) { }
+  ttipouser:Ttipouser[];
+
+  tnivelures:Tnivelures[];
+
+  constructor( private fb: FormBuilder, private validadores: ValidadoresService, private _reg: RegistrarService) { }
 
   ngOnInit(): void {
     window.scroll(0, 0);
     this.crearFormulario();
+
+    this._reg.getTtipouser().subscribe(
+      (ttipouser) => {
+        this.ttipouser = ttipouser;
+        //console.log(this.ttipouser);
+      }
+    )
+
+    this._reg.getTnivelures().subscribe(
+      (tnivelures) => {
+        this.tnivelures = tnivelures;
+        console.log(this.tnivelures);
+      }
+    )
+
   }
 
   Hidden(ValorSelect){

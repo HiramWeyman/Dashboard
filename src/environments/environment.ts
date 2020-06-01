@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
 
-  rutaPortal: 'http://localhost:4500/'
+  rutaPortal: 'http://localhost:4500/',
+
+  rutaAPI: 'http://localhost:8090/api/'
 };
 
 /*

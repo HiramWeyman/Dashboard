@@ -1,20 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DefaultComponent } from './layouts/default/default.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { PostsComponent } from './modules/posts/posts.component';
+import { LoginComponent } from './shared/login/login.component';
 
-const routes: Routes = [
-  {path: '', component: DefaultComponent,
-  children: [
-    {path: '',component: DashboardComponent}, 
-    {path: 'posts',component: PostsComponent}
-  ]},
+const APP_ROUTES: Routes = [
+  {path: '', component: LoginComponent},
   { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, {useHash: false});

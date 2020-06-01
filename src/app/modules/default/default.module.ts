@@ -9,11 +9,17 @@ import { MatSidenavModule, MatDividerModule, MatCardModule, MatPaginatorModule, 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashboardService } from 'src/app/modules/dashboard.service';
 
+// Rutas
+import { PAGES_ROUTES } from './default.routes';
+
 @NgModule({
   declarations: [
     DefaultComponent,
     DashboardComponent,
     PostsComponent
+  ],
+  exports: [
+    DefaultComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +30,8 @@ import { DashboardService } from 'src/app/modules/dashboard.service';
     FlexLayoutModule,
     MatCardModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    PAGES_ROUTES
   ],
   providers: [
     DashboardService

@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MatDividerModule, MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, MatListModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//rutas
+import { SHARED_ROUTES } from './shared.routes';
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -13,6 +17,8 @@ import { CardComponent } from './widgets/card/card.component';
 import { PieComponent } from './widgets/pie/pie.component';
 
 import { MatExpansionModule } from '@angular/material/expansion';
+import { RegistrarComponent } from './registrar/registrar.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +27,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
     SidebarComponent,
     AreaComponent,
     CardComponent,
-    PieComponent
+    PieComponent,
+    RegistrarComponent,
+    LoginComponent
   ],
   imports: [
+    SHARED_ROUTES,
     CommonModule,
     MatDividerModule,
     MatToolbarModule,
@@ -34,7 +43,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatListModule,
     RouterModule,
     HighchartsChartModule,
-    MatExpansionModule
+    MatExpansionModule,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,

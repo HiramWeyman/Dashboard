@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/css/login.css">
+
+<section class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="signup">
+                    <div class="row">
+                        <div class="col-md-5 signup-greeting overlay" style="background-image: url(assets/images/background/signup.jpg);">
+                            <img src="assets/images/logo.png" alt="logo">
+                          <h4>Bienvenido!</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna.</p>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="signup-form">
+                                <form class="row" [formGroup]="forma" (ngSubmit)="guardar()">
+                                    <div class="col-lg-12">
+                                        <h4>Registro</h4>
+                                        <p class="float-sm-right">¿Ya tienes una cuenta?
+                                            <a routerLink="/login">Inicia Sesión</a>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <select formControlName="tipoUsuario" class="form-control" (change)="Hidden($event.target.value);" [class.is-invalid]="tipoUsuarioNovalido">
+                                            <option selected disabled value="">- Selecciona un tipo de usuario -</option>
+                                            <option value="10">ALUMNOS UJED</option>
+                                            <option value="40">ESCUELAS INCORPORADAS</option>
+                                            <option value="20">PERSONAL UJED</option>
+                                            <option value="50">PUBLICO EN GENERAL</option>
+                                            <option value="30">UNIDADES ACADEMICAS UJED</option>
+                                        </select>
+                                        <small *ngIf="tipoUsuarioNovalido" class="text-danger">
+                                            Selecciona un tipo de usuario
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-12" *ngIf="!isHidden">
+                                        <select formControlName="nivelUres" class="form-control" [class.is-invalid]="nivelUresNovalido">
+                                            <option selected disabled value="">- Selecciona un nivel academico -</option>
+                                            <option value="10">LICENCIATURA</option>
+                                            <option value="40">DIRECCION</option>
+                                            <option value="20">POSGRADO</option>
+                                            <option value="30">MEDIA SUPERIOR</option>
+                                        </select>
+                                        <small *ngIf="nivelUresNovalido" class="text-danger">
+                                            Selecciona un nivel academico
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" formControlName="user" placeholder="Usuario" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="userNovalido">
+                                        <small *ngIf="userNovalido" class="text-danger">
+                                            Ingrese un Usuario
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="nombreNovalido">
+                                        <small *ngIf="nombreNovalido" class="text-danger">
+                                            Ingrese un Nombre
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" formControlName="telefono" placeholder="Telefono" autocomplete="off" [class.is-invalid]="telefonoNovalido">
+                                        <small *ngIf="telefonoNovalido" class="text-danger">
+                                            Ingrese un numero de telefono
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <input type="email" class="form-control" formControlName="email" placeholder="Email" autocomplete="off" [class.is-invalid]="emailNovalido">
+                                        <small *ngIf="emailNovalido" class="text-danger">
+                                            Ingrese un correo electornico
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <input type="password" class="form-control" formControlName="password" placeholder="Password" autocomplete="off" [class.is-invalid]="passwordNovalido">
+                                        <small *ngIf="passwordNovalido" class="text-danger">
+                                            Ingrese un password
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <input type="password" class="form-control" formControlName="repassword" placeholder="Confirmar Password" autocomplete="off" [class.is-invalid]="repasswordNovalido">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button class="btn btn-primary btn-sm" [disabled]="!forma.valid">Registrar</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button class="btn btn-secondary btn-sm" routerLink="/login">Regresar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

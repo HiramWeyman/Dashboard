@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor( private _login: LoginService ) { }
 
   ngOnInit() { }
 
@@ -21,5 +22,9 @@ export class HeaderComponent implements OnInit {
       );
     }, 300);
   }
+
+  cerrarSesion() {
+		this._login.logout();
+	}
 
 }

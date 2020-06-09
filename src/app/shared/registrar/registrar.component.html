@@ -1,5 +1,6 @@
+<block-ui>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" href="assets/css/login.css">
+<link rel="stylesheet" href="../../../assets/css/login.css">
 
 <section class="d-flex align-items-center justify-content-center" style="height: 100vh;">
     <div class="container">
@@ -19,11 +20,11 @@
                                     <div class="col-lg-12">
                                         <h4>Registro</h4>
                                         <p class="float-sm-right">¿Ya tienes una cuenta?
-                                            <a routerLink="/login">Inicia Sesión</a>
+                                            <a routerLink="">Inicia Sesión</a>
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
-                                        <select formControlName="tipoUsuario" class="form-control" (change)="Hidden($event.target.value);" [class.is-invalid]="tipoUsuarioNovalido">
+                                        <select formControlName="usua_tipo_usuario" class="form-control" (change)="Hidden($event.target.value);" [class.is-invalid]="tipoUsuarioNovalido">
                                             <option selected disabled value="">- Selecciona un tipo de usuario -</option>
                                             <option *ngFor="let t of ttipouser" value="{{ t.tipo_userid }}">{{ t.tipo_descrip }}</option>
                                         </select>
@@ -32,55 +33,70 @@
                                         </small>
                                     </div>
                                     <div class="col-lg-12" *ngIf="!isHidden">
-                                        <select formControlName="nivelUres" class="form-control" [class.is-invalid]="nivelUresNovalido">
-                                            <option selected disabled value="">- Selecciona un nivel academico -</option>
-                                            <option *ngFor="let tn of tnivelures" value="{{ tn.nive_nivel }}">{{ tn.nive_descrip }}</option>
-                                            <option value="40">DIRECCION</option>
-                                            <option value="20">POSGRADO</option>
-                                            <option value="30">MEDIA SUPERIOR</option>
+                                        <select formControlName="usua_ures" class="form-control" (change)="Programas($event.target.value);" [class.is-invalid]="uresNovalido">
+                                            <option selected disabled value="">- Selecciona una ures-</option>
+                                            <option *ngFor="let u of ures" value="{{ u.ures_ures }}">{{ u.ures_uresdesc }}</option>
                                         </select>
-                                        <small *ngIf="nivelUresNovalido" class="text-danger">
-                                            Selecciona un nivel academico
+                                        <small *ngIf="uresNovalido" class="text-danger">
+                                            Selecciona una ures
                                         </small>
                                     </div>
+                                    <div class="col-lg-12" *ngIf="!isHidden">
+                                        <select formControlName="usua_prog" class="form-control">
+                                            <option selected disabled value="">- Selecciona un programa -</option>
+                                            <option *ngFor="let p of programas" value="{{ p.prog_prog }}">{{ p.prog_progdesc }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12" *ngIf="!isHidden">
+                                        <select formControlName="usua_nivel" class="form-control">
+                                            <option selected disabled value="">- Selecciona un nivel academico -</option>
+                                            <option *ngFor="let tn of tnivelures" value="{{ tn.nive_nivel }}">{{ tn.nive_descrip }}</option>
+                                        </select>
+                                    </div>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" formControlName="user" placeholder="Usuario" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="userNovalido">
+                                        <input type="text" class="form-control" formControlName="usua_usuario" maxlength="20" placeholder="Usuario" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="userNovalido">
                                         <small *ngIf="userNovalido" class="text-danger">
                                             Ingrese un Usuario
                                         </small>
                                     </div>
+                                    <div class="col-lg-12" *ngIf="!isHiddenMatricula">
+                                        <input type="text" class="form-control" formControlName="usua_persona" maxlength="8" placeholder="Matricula o No. Persona" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="matriculaNovalido">
+                                        <small *ngIf="matriculaNovalido" class="text-danger">
+                                            Ingrese una matirucla o numero de persona
+                                        </small>
+                                    </div>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="nombreNovalido">
+                                        <input type="text" class="form-control" formControlName="usua_nombre" maxlength="100" placeholder="Nombre completo" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="nombreNovalido">
                                         <small *ngIf="nombreNovalido" class="text-danger">
                                             Ingrese un Nombre
                                         </small>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" formControlName="telefono" placeholder="Telefono" autocomplete="off" [class.is-invalid]="telefonoNovalido">
+                                        <input type="text" class="form-control" formControlName="usua_tel" maxlength="10" placeholder="Telefono (Solo numeros ej. 6181234567)" autocomplete="off" [class.is-invalid]="telefonoNovalido">
                                         <small *ngIf="telefonoNovalido" class="text-danger">
                                             Ingrese un numero de telefono
                                         </small>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="email" class="form-control" formControlName="email" placeholder="Email" autocomplete="off" [class.is-invalid]="emailNovalido">
+                                        <input type="email" class="form-control" formControlName="usua_email" maxlength="50" placeholder="Email" autocomplete="off" [class.is-invalid]="emailNovalido">
                                         <small *ngIf="emailNovalido" class="text-danger">
                                             Ingrese un correo electornico
                                         </small>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="password" class="form-control" formControlName="password" placeholder="Password" autocomplete="off" [class.is-invalid]="passwordNovalido">
+                                        <input type="password" class="form-control" formControlName="usua_paswd" maxlength="50" placeholder="Password" autocomplete="off" [class.is-invalid]="passwordNovalido">
                                         <small *ngIf="passwordNovalido" class="text-danger">
                                             Ingrese un password
                                         </small>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="password" class="form-control" formControlName="repassword" placeholder="Confirmar Password" autocomplete="off" [class.is-invalid]="repasswordNovalido">
+                                        <input type="password" class="form-control" formControlName="repassword" maxlength="50" placeholder="Confirmar Password" autocomplete="off" [class.is-invalid]="repasswordNovalido">
                                     </div>
                                     <div class="col-sm-6">
                                         <button class="btn btn-primary btn-sm" [disabled]="!forma.valid">Registrar</button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button class="btn btn-secondary btn-sm" routerLink="/login">Regresar</button>
+                                        <button class="btn btn-secondary btn-sm" routerLink="">Regresar</button>
                                     </div>
                                 </form>
                             </div>
@@ -91,4 +107,4 @@
         </div>
     </div>
 </section>
-
+</block-ui>

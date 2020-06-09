@@ -4,6 +4,7 @@ import { MatDividerModule, MatToolbarModule, MatIconModule, MatButtonModule, Mat
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BlockUIModule } from 'ng-block-ui';
 
 //rutas
 import { SHARED_ROUTES } from './shared.routes';
@@ -45,7 +46,8 @@ import { LoginComponent } from './login/login.component';
     HighchartsChartModule,
     MatExpansionModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BlockUIModule.forRoot(),
   ],
   exports: [
     HeaderComponent,

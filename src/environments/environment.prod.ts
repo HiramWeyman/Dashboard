@@ -3,5 +3,5 @@ export const environment = {
 
   rutaPortal: 'http://192.168.1.190:8080/portalTesoreria/',
 
-  rutaAPI: 'http://192.168.1.190:8080/api/'
+  rutaAPI: 'http://192.168.1.190:8080/api'
 };

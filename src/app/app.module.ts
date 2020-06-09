@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BlockUIModule } from 'ng-block-ui';
 
 //rutas
 import { APP_ROUTING } from './app-routing.module';
@@ -23,7 +24,8 @@ import { ServicesModule } from './services/services.module';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    ServicesModule
+    ServicesModule,
+    BlockUIModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

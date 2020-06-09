@@ -5,6 +5,13 @@ import { ValidadoresService } from '../../services/validadores.service';
 import { RegistrarService } from 'src/app/services/services.index';
 import { Ttipouser } from './ttipouser';
 import { Tnivelures } from './tnivelures';
+import { Ures } from './ures';
+import { Programas } from './programas';
+import {Router, ActivatedRoute} from '@angular/router';
+import Swal from 'sweetalert2';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { sha256, sha224 } from 'js-sha256';
+
 
 @Component({
   selector: 'app-registrar',
@@ -12,20 +19,26 @@ import { Tnivelures } from './tnivelures';
 })
 export class RegistrarComponent implements OnInit {
 
+  @BlockUI() blockUI: NgBlockUI;
+
   forma: FormGroup;
 
   private subscription: Subscription;
 
-  isHidden = true
+  isHidden = true;
+  isHiddenMatricula = false;
 
   ttipouser:Ttipouser[];
-
   tnivelures:Tnivelures[];
+  ures:Ures[];
+  programas: any[];
 
-  constructor( private fb: FormBuilder, private validadores: ValidadoresService, private _reg: RegistrarService) { }
+  constructor( private fb: FormBuilder, private validadores: ValidadoresService, private _reg: RegistrarService,
+               public router: Router ) { }
 
   ngOnInit(): void {
     window.scroll(0, 0);
+    this.blockUI.start();
     this.crearFormulario();
 
     this._reg.getTtipouser().subscribe(
@@ -38,57 +51,109 @@ export class RegistrarComponent implements OnInit {
     this._reg.getTnivelures().subscribe(
       (tnivelures) => {
         this.tnivelures = tnivelures;
-        console.log(this.tnivelures);
+        //console.log(this.tnivelures);
       }
     )
 
+    this._reg.getUres().subscribe(
+      (ures) => {
+        this.ures = ures;
+        //console.log(this.ures);
+      }
+    )
+    this.blockUI.stop();
+  }
+
+  Programas(valueUres){
+    //console.log(valueUres);
+    this._reg.getPrograma(valueUres).subscribe(
+      (programas: any) => {
+        this.programas = programas;
+        //console.log(this.programas);
+      }
+    )
   }
 
   Hidden(ValorSelect){
-    if (ValorSelect=="30"){
+    if (ValorSelect=="10" || ValorSelect=="20" || ValorSelect=="30"){
       this.isHidden = false;
-      this.forma.get('nivelUres').setValue('');
-      this.forma.get('nivelUres').setValidators(Validators.required);
-      this.forma.get('nivelUres').updateValueAndValidity();
+
+      this.forma.get('usua_ures').setValue('');
+      this.forma.get('usua_ures').setValidators(Validators.required);
+      this.forma.get('usua_ures').updateValueAndValidity();
+
+      this.forma.get('usua_nivel').setValue('');
+      //this.forma.get('usua_nivel').setValidators(Validators.required);
+      this.forma.get('usua_nivel').updateValueAndValidity();
+
+      this.forma.get('usua_prog').setValue('');
+      this.forma.get('usua_prog').clearValidators();
+      this.forma.get('usua_prog').updateValueAndValidity();
     }else{
-      this.forma.get('nivelUres').setValue('');
-      this.forma.get('nivelUres').clearValidators();
-			this.forma.get('nivelUres').updateValueAndValidity();
       this.isHidden = true;
+
+      this.forma.get('usua_ures').setValue('5300');
+      this.forma.get('usua_ures').clearValidators();
+      this.forma.get('usua_ures').updateValueAndValidity();
+
+      this.forma.get('usua_nivel').setValue('40');
+      //this.forma.get('usua_nivel').clearValidators();
+      this.forma.get('usua_nivel').updateValueAndValidity();
+      
+      this.Programas('5300');
+
+      this.forma.get('usua_prog').setValue('510002');
+      this.forma.get('usua_prog').clearValidators();
+      this.forma.get('usua_prog').updateValueAndValidity();
     }
+
+    if (ValorSelect=="50"){
+      this.isHiddenMatricula = true;
+      this.forma.get('usua_persona').setValue('999999');
+      this.forma.get('usua_persona').updateValueAndValidity();
+    }else{
+      this.isHiddenMatricula = false;
+      this.forma.get('usua_persona').setValue('');
+      this.forma.get('usua_persona').updateValueAndValidity();
+    }
+
   }
 
   get tipoUsuarioNovalido(){
-    return this.forma.get('tipoUsuario').invalid && this.forma.get('user').touched
+    return this.forma.get('usua_tipo_usuario').invalid && this.forma.get('usua_tipo_usuario').touched
   }
-
+/*
   get nivelUresNovalido(){
-    return this.forma.get('nivelUres').invalid && this.forma.get('user').touched
+    return this.forma.get('usua_nivel').invalid && this.forma.get('usua_nivel').touched
+  }
+*/
+  get uresNovalido(){
+    return this.forma.get('usua_ures').invalid && this.forma.get('usua_ures').touched
   }
 
   get userNovalido(){
-    return this.forma.get('user').invalid && this.forma.get('user').touched
+    return this.forma.get('usua_usuario').invalid && this.forma.get('usua_usuario').touched
   }
 
   get nombreNovalido(){
-    return this.forma.get('nombre').invalid && this.forma.get('nombre').touched
+    return this.forma.get('usua_nombre').invalid && this.forma.get('usua_nombre').touched
   }
 
   get telefonoNovalido(){
-    return this.forma.get('telefono').invalid && this.forma.get('telefono').touched
+    return this.forma.get('usua_tel').invalid && this.forma.get('usua_tel').touched
   }
 
   get emailNovalido(){
-    return this.forma.get('email').invalid && this.forma.get('email').touched
+    return this.forma.get('usua_email').invalid && this.forma.get('usua_email').touched
   }
 
   get passwordNovalido(){
-    return this.forma.get('password').invalid && this.forma.get('password').touched
+    return this.forma.get('usua_paswd').invalid && this.forma.get('usua_paswd').touched
   }
 
   get repasswordNovalido(){
     //return this.forma.get('repassword').invalid && this.forma.get('repassword').touched
-    const pass1 = this.forma.get('password').value;
+    const pass1 = this.forma.get('usua_paswd').value;
     const pass2 = this.forma.get('repassword').value;
     
     return ( pass1 === pass2) ? false : true;
@@ -97,27 +162,50 @@ export class RegistrarComponent implements OnInit {
   crearFormulario(){
 
     this.forma = this.fb.group({
-      tipoUsuario: ['', Validators.required],
-      nivelUres: ['', Validators.required],
-      user: ['', [Validators.required,Validators.maxLength(20)]],
-      nombre: ['', [Validators.required,Validators.maxLength(100)]],
-      telefono: ['', [Validators.required,Validators.maxLength(10)]],
-      email: ['', [Validators.required,Validators.email,Validators.maxLength(50)]],
-      password: ['', [Validators.required,Validators.maxLength(50)]],
+      usua_tipo_usuario: ['', Validators.required],
+      usua_nivel: [''],
+      //usua_ures: ['', [Validators.required, this.validadores.existeUsuario]],
+      usua_ures: ['', Validators.required],
+      usua_prog: [''],
+      usua_usuario: ['', [Validators.required,Validators.maxLength(20)]],
+      usua_persona: ['', [Validators.required,Validators.maxLength(8)]],
+      usua_nombre: ['', [Validators.required,Validators.maxLength(100)]],
+      usua_tel: ['', [Validators.required,Validators.maxLength(10),Validators.pattern(/^[0-9]\d*$/)]],
+      usua_email: ['', [Validators.required,Validators.email,Validators.maxLength(50)]],
+      usua_paswd: ['', [Validators.required,Validators.maxLength(50)]],
       repassword: ['', [Validators.required,Validators.maxLength(50)]]
     },{
-      validators: this.validadores.passwordsIguales('password','repassword')
+      validators: this.validadores.passwordsIguales('usua_paswd','repassword')
     });
 
   }
 
   guardar(){
+    /*
     console.log(this.forma);
-
+    var hash2 = sha256.update('Message to hash');
+    console.log(sha256('este es un ejemplo'));
+    */
     if (this.forma.invalid){
       return Object.values( this.forma.controls ).forEach( control =>{
         control.markAsTouched();
       })
+    }else{
+      console.log(this.forma.value);
+      
+      this._reg.create(this.forma.value).subscribe(usr => {
+        this.router.navigate(['']);
+          Swal.fire('Nuevo usuario', `Usuario ${usr.usua_usuario} creado con éxito!`, 'success');
+          //this.cargarUsers();
+      },
+      error => {
+        console.log(error);
+        Swal.fire({
+          title: 'ERROR!!!',
+          text: error.error.message,
+          icon: 'error'});
+      });
+      
     }
     
   }

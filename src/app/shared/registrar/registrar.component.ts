@@ -11,6 +11,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import Swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { sha256, sha224 } from 'js-sha256';
+import { ErroresService } from '../../services/manejo_errores/errores.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class RegistrarComponent implements OnInit {
   programas: any[];
 
   constructor( private fb: FormBuilder, private validadores: ValidadoresService, private _reg: RegistrarService,
-               public router: Router ) { }
+               public router: Router, private _error: ErroresService ) { }
 
   ngOnInit(): void {
     window.scroll(0, 0);
@@ -135,6 +136,10 @@ export class RegistrarComponent implements OnInit {
     return this.forma.get('usua_usuario').invalid && this.forma.get('usua_usuario').touched
   }
 
+  get matriculaNovalido(){
+    return this.forma.get('usua_persona').invalid && this.forma.get('usua_persona').touched
+  }
+
   get nombreNovalido(){
     return this.forma.get('usua_nombre').invalid && this.forma.get('usua_nombre').touched
   }
@@ -191,19 +196,31 @@ export class RegistrarComponent implements OnInit {
         control.markAsTouched();
       })
     }else{
-      console.log(this.forma.value);
-      
+      //console.log(this.forma.value);
       this._reg.create(this.forma.value).subscribe(usr => {
         this.router.navigate(['']);
           Swal.fire('Nuevo usuario', `Usuario ${usr.usua_usuario} creado con éxito!`, 'success');
           //this.cargarUsers();
       },
       error => {
+        var splitted = error.error.message.split("["); 
+        var splitted2 = splitted[2].split("]"); 
+        var constraint = splitted2[0].split("."); 
+        this._error.getError(constraint[1]).subscribe(err => {
+          console.log(err);
+          Swal.fire({
+            title: 'ERROR!!!',
+            text: err[0].cerr_mensaje,
+            icon: 'error'});
+        })
+
+        /*
         console.log(error);
         Swal.fire({
           title: 'ERROR!!!',
           text: error.error.message,
           icon: 'error'});
+        */
       });
       
     }

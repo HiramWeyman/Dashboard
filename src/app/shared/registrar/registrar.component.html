@@ -24,22 +24,22 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
+                                        <small *ngIf="tipoUsuarioNovalido" class="text-danger">
+                                            Selecciona un tipo de usuario
+                                        </small>
                                         <select formControlName="usua_tipo_usuario" class="form-control" (change)="Hidden($event.target.value);" [class.is-invalid]="tipoUsuarioNovalido">
                                             <option selected disabled value="">- Selecciona un tipo de usuario -</option>
                                             <option *ngFor="let t of ttipouser" value="{{ t.tipo_userid }}">{{ t.tipo_descrip }}</option>
                                         </select>
-                                        <small *ngIf="tipoUsuarioNovalido" class="text-danger">
-                                            Selecciona un tipo de usuario
-                                        </small>
                                     </div>
                                     <div class="col-lg-12" *ngIf="!isHidden">
+                                        <small *ngIf="uresNovalido" class="text-danger">
+                                            Selecciona una ures
+                                        </small>
                                         <select formControlName="usua_ures" class="form-control" (change)="Programas($event.target.value);" [class.is-invalid]="uresNovalido">
                                             <option selected disabled value="">- Selecciona una ures-</option>
                                             <option *ngFor="let u of ures" value="{{ u.ures_ures }}">{{ u.ures_uresdesc }}</option>
                                         </select>
-                                        <small *ngIf="uresNovalido" class="text-danger">
-                                            Selecciona una ures
-                                        </small>
                                     </div>
                                     <div class="col-lg-12" *ngIf="!isHidden">
                                         <select formControlName="usua_prog" class="form-control">
@@ -54,40 +54,40 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" formControlName="usua_usuario" maxlength="20" placeholder="Usuario" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="userNovalido">
                                         <small *ngIf="userNovalido" class="text-danger">
                                             Ingrese un Usuario
                                         </small>
+                                        <input type="text" class="form-control" formControlName="usua_usuario" maxlength="20" placeholder="Usuario" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="userNovalido">
                                     </div>
                                     <div class="col-lg-12" *ngIf="!isHiddenMatricula">
-                                        <input type="text" class="form-control" formControlName="usua_persona" maxlength="8" placeholder="Matricula o No. Persona" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="matriculaNovalido">
                                         <small *ngIf="matriculaNovalido" class="text-danger">
                                             Ingrese una matirucla o numero de persona
                                         </small>
+                                        <input type="text" class="form-control" formControlName="usua_persona" maxlength="8" placeholder="Matricula o No. Persona" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="matriculaNovalido">
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" formControlName="usua_nombre" maxlength="100" placeholder="Nombre completo" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="nombreNovalido">
                                         <small *ngIf="nombreNovalido" class="text-danger">
                                             Ingrese un Nombre
                                         </small>
+                                        <input type="text" class="form-control" formControlName="usua_nombre" maxlength="100" placeholder="Nombre completo" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="nombreNovalido">
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" formControlName="usua_tel" maxlength="10" placeholder="Telefono (Solo numeros ej. 6181234567)" autocomplete="off" [class.is-invalid]="telefonoNovalido">
                                         <small *ngIf="telefonoNovalido" class="text-danger">
                                             Ingrese un numero de telefono
                                         </small>
+                                        <input type="text" class="form-control" formControlName="usua_tel" maxlength="10" placeholder="Telefono (Solo numeros ej. 6181234567)" autocomplete="off" [class.is-invalid]="telefonoNovalido">
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="email" class="form-control" formControlName="usua_email" maxlength="50" placeholder="Email" autocomplete="off" [class.is-invalid]="emailNovalido">
                                         <small *ngIf="emailNovalido" class="text-danger">
                                             Ingrese un correo electornico
                                         </small>
+                                        <input type="email" class="form-control" formControlName="usua_email" maxlength="50" placeholder="Email" autocomplete="off" [class.is-invalid]="emailNovalido">
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="password" class="form-control" formControlName="usua_paswd" maxlength="50" placeholder="Password" autocomplete="off" [class.is-invalid]="passwordNovalido">
                                         <small *ngIf="passwordNovalido" class="text-danger">
                                             Ingrese un password
                                         </small>
+                                        <input type="password" class="form-control" formControlName="usua_paswd" maxlength="50" placeholder="Password" autocomplete="off" [class.is-invalid]="passwordNovalido">
                                     </div>
                                     <div class="col-lg-12">
                                         <input type="password" class="form-control" formControlName="repassword" maxlength="50" placeholder="Confirmar Password" autocomplete="off" [class.is-invalid]="repasswordNovalido">

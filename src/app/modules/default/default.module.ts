@@ -5,9 +5,16 @@ import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.componen
 import { RouterModule } from '@angular/router';
 import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatSidenavModule, MatDividerModule, MatCardModule, MatPaginatorModule, MatTableModule } from '@angular/material';
+import { MatSidenavModule, 
+         MatDividerModule, 
+         MatCardModule, 
+         MatPaginatorModule, 
+         MatTableModule,
+         MatFormFieldModule,
+         MatSelectModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DashboardService } from 'src/app/modules/dashboard.service';
+import { ReceiptComponent } from '../receipt/receipt.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Rutas
 import { PAGES_ROUTES } from './default.routes';
@@ -16,7 +23,8 @@ import { PAGES_ROUTES } from './default.routes';
   declarations: [
     DefaultComponent,
     DashboardComponent,
-    PostsComponent
+    PostsComponent,
+    ReceiptComponent
   ],
   exports: [
     DefaultComponent
@@ -31,10 +39,14 @@ import { PAGES_ROUTES } from './default.routes';
     MatCardModule,
     MatPaginatorModule,
     MatTableModule,
-    PAGES_ROUTES
+    MatFormFieldModule,
+    MatSelectModule,
+    PAGES_ROUTES,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [
-    DashboardService
+    
   ]
 })
 export class DefaultModule { }

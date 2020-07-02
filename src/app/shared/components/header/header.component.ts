@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { RegistrarService } from '../../../services/registrar.service';
+import { Usuarios } from '../../../shared/registrar/usuarios';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +10,27 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class HeaderComponent implements OnInit {
 
+  usuarios:Usuarios[];
+  badges:any;
+
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
 
-  constructor( private _login: LoginService ) { }
+  constructor( private _login: LoginService, private _reg: RegistrarService ) {
 
-  ngOnInit() { }
+    //this.badges = sessionStorage.getItem('shoppingCart').length.subscribe
+
+   }
+
+  ngOnInit() {
+
+    this._reg.getUserName(sessionStorage.getItem('Login')).subscribe(
+      (usuarios) => {
+        this.usuarios = usuarios;
+        //console.log(this.usuarios);
+      }
+    )
+
+   }
 
   toggleSideBar() {
     this.toggleSideBarForMe.emit();

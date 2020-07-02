@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlockUIModule } from 'ng-block-ui';
+import {MatBadgeModule} from '@angular/material/badge';
 
 //rutas
 import { SHARED_ROUTES } from './shared.routes';
@@ -20,6 +21,7 @@ import { PieComponent } from './widgets/pie/pie.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RegistrarComponent } from './registrar/registrar.component';
 import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule, 
     ReactiveFormsModule,
     BlockUIModule.forRoot(),
+    MatBadgeModule
   ],
   exports: [
     HeaderComponent,

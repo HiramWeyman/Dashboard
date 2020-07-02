@@ -7,6 +7,7 @@ export const environment = {
 
   rutaPortal: 'http://localhost:4500/',
 
+  //rutaAPI: 'http://192.168.1.190:8090/api'
   rutaAPI: 'http://localhost:8090/api'
 };
 

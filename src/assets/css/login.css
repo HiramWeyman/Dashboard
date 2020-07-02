@@ -242,6 +242,19 @@ h6, .h6 {
   box-shadow: none;
 }
 
+.btn-blue {
+  background: #007bff;
+  color: #fff;
+}
+
+.btn-blue:active {
+  background: #007bff !important;
+}
+
+.btn-blue:hover {
+  background: #4fa4ff;
+}
+
 .btn-primary {
   background: #e84444;
   color: #fff;

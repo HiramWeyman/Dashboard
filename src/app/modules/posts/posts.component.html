@@ -1,1 +1,23 @@
-<p>posts works!</p>
+<link rel="stylesheet" href="../../../assets/css/login.css">
+
+<form class="row" [formGroup]="forma">
+  <div class="row" style="display: flex;">
+    <div class="selectWrapper col-sm-10" >
+      <select formControlName="servicios" (change)="buttonEnabled($event.target.value);textSelect($event)">
+          <option value="" selected disabled> - Seleccione un servicio a pagar - </option>
+          <option *ngFor="let cp of catalogopago" [value]='cp.cati_ingid +","+cp.cati_punit'>{{ cp.cati_descrip }}</option>
+      </select>
+    </div> 
+  </div>
+</form>
+
+<div class="alert alert-info">
+  <strong>Descripción</strong><br>
+  <h3>{{ this.text_Select }}</h3><br>
+  <strong>Costo</strong><br>
+  <h4>{{ this.monto_Select | currency }}</h4>
+</div>
+<div class="col-sm-4">
+  <button class="btn btn-blue btn-sm" [disabled]="ToggleButton" (click)="add()">Añadir al carrito</button>
+</div>
+

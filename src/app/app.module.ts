@@ -11,10 +11,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { DefaultModule } from './modules/default/default.module';
 import { ServicesModule } from './services/services.module';
+import { ShoppingcartComponent } from './modules/shoppingcart/shoppingcart.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShoppingcartComponent
   ],
   imports: [
     BrowserModule,

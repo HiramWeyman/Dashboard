@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.subscription = this._log.getLogin(this.log)
       .subscribe((data: any) => {
-        console.log(data);
+        //console.log(data);
         
         if ( typeof data !== 'undefined' && data.length > 0) {
           swal.fire({
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
             timer: 2000
           });
           sessionStorage.Login = this.log.user.toString();
+          sessionStorage.Tipo = data[0].usua_tipo_usuario.toString();
           this.router.navigate(['/dashboard']);
         } else{
           swal.fire({

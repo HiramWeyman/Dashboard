@@ -28,8 +28,20 @@ export class LoginService {
       }
 
   logout() {
-		sessionStorage.removeItem('Login');
+    sessionStorage.removeItem('Login');
+    sessionStorage.removeItem('Tipo');
+    sessionStorage.removeItem('shoppingCart');
 		// sessionStorage.removeItem(_TOKEN);
 		this.router.navigate(['']);
-	}
+  }
+  
+  estaLogueado() {
+		 if (sessionStorage.removeItem('Login') === null) {
+      return false;
+		} else {
+      //return true;
+      return (sessionStorage.getItem('Login'));
+		}
+  }
+  
 }

@@ -1,46 +1,57 @@
+<!--
 <mat-nav-list>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
-        <mat-icon>pages</mat-icon> Dashboard
-    </a>
+  <ng-container *ngFor="let rol of roles">
 
-    <mat-divider></mat-divider>
+      <ng-container *ngIf="rol.rolu_modulo_pred === null">
+        <a  mat-list-item routerLinkActive="list-item-active" routerLink="/{{rol.rolu_modulo_route}}">
+          <mat-icon>pages</mat-icon> {{rol.rolu_modulo_descrip}}
+        </a>
+      </ng-container>
+      <ng-container *ngIf="rol.rolu_modulo_pred !== null">
+        <ng-container *ngIf="rol.rolu_modulo_route === null">
 
-    <h2 matSubheader><strong>Algun nombre categoría</strong></h2>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>payment</mat-icon>{{rol.rolu_modulo_descrip}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts"><mat-icon>payment</mat-icon> {{rol.rolu_modulo_descrip}}</a>
+          </mat-expansion-panel>
 
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>folder_open</mat-icon>Publicaciones
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard"><mat-icon>label_important</mat-icon>Nota Principal</a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard"><mat-icon>label_important</mat-icon>Otra Notas</a>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>payment</mat-icon>Pagos
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts"><mat-icon>payment</mat-icon> Servicios</a>
-    </mat-expansion-panel>
-    
-    
-    <mat-divider></mat-divider>
+        </ng-container>
 
-    <h2 matSubheader>Herramientas</h2>
+      </ng-container>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
-        <mat-icon>import_contacts</mat-icon>
-        Contactos
-    </a>
+  </ng-container>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
-        <mat-icon>contact_phone</mat-icon>
-        Telefonos
-    </a>
+</mat-nav-list>
+-->
 
-    <mat-divider></mat-divider>
 
+<mat-nav-list>
+  
+
+    <ng-container *ngIf="tipoRol === '10' || tipoRol === '20'">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+          <mat-icon>pages</mat-icon> Dashboard
+      </a>
+      <mat-divider></mat-divider>
+    </ng-container>
+
+    <ng-container *ngIf="tipoRol === '10'">
+      <h2 matSubheader><strong>Pagos en línea</strong></h2>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>money</mat-icon>Pagos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts"><mat-icon>payment</mat-icon> Pagar Servicio</a>
+          <a mat-list-item routerLinkActive="list-item-active" routerLink="/recibos"><mat-icon>receipt</mat-icon> Recibos</a>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+  </ng-container>
+  
 </mat-nav-list>

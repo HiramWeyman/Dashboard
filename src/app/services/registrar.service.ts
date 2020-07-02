@@ -7,6 +7,7 @@ import { Tnivelures } from '../shared/registrar/tnivelures';
 import { Ures } from '../shared/registrar/ures';
 import { Programas } from '../shared/registrar/programas';
 import { Usuarios } from '../shared/registrar/usuarios';
+import { Roles } from './dashboard/roles';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -44,6 +45,14 @@ export class RegistrarService {
   getProgramas(): Observable<Programas[]> {
     return this.http.get(`${environment.rutaAPI}/tvprogramas`).pipe(
       map(response => response as Programas[])
+    );
+  }
+
+  getUserName(user: string) {
+    return this.http.post(`${environment.rutaAPI}/tusuarios/${user}`,user).pipe(
+      map((response: any) => {
+            return response;
+            })
     );
   }
 

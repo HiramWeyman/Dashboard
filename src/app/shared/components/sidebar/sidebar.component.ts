@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../../services/dashboard/dashboard.service';
+import { Roles } from '../../../services/dashboard/roles';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  roles:Roles[];
+  tipoRol: any;
+
+  constructor( private _das: DashboardService ) { }
 
   ngOnInit() {
+    /*
+    this._das.getRol(sessionStorage.getItem('Tipo')).subscribe(
+      (roles) => {
+        this.roles = roles;
+        console.log(this.roles);
+      }
+    )
+      */
+     this.tipoRol = sessionStorage.getItem('Tipo');
+     console.log(this.tipoRol);
   }
 
 }

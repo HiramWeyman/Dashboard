@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="../../../assets/css/login.css">
+
+<div class="alert alert-dark" role="alert">
+    
+    <h3>Mi carrito de compras</h3>
+
+<ng-container *ngIf="ecomServices?.length > 0">
+    <table class="table table-hover table-sm">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Descripcion</th>
+                <th>Importe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let es of ecomServices">
+                <td><button class="btn btn-primary btn-sm" (click)="deleteItem(es.ID)">X</button>
+                </td>
+                <td>{{ es.Descrip }}</td>
+                <td style="text-align: right;">{{ es.Mount | currency }}</td>
+            </tr>
+            <tr style="text-align: left;">
+                <th colspan="3">Código de descuento:
+                    <input value="">
+                    <button class="btn btn-blue btn-sm">Aplicar</button>
+                </th>
+            </tr>
+            <tr style="text-align: left;">
+                <th colspan="2">
+                    Metodo de pago:
+                    <select>
+                        <option value="" selected disabled> - Seleccione un metodo de pago - </option>
+                        <option value="TC">Tarjeta de Crédito</option>
+                        <option value="TC">Tarjeta de Dédito</option>
+                    </select>
+                </th>
+                <td style="text-align: right;"><strong>{{ totalPrice() | currency  }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+<ng-container *ngIf="ecomServices?.length == 0">
+    <div style="text-align: center;">
+        <h4>El carrito esta vacio</h4>
+    </div>
+</ng-container>
+</div>
+
+<ng-container *ngIf="ecomServices?.length > 0">
+    <p><strong>session_id:</strong> {{ session_id }}</p>
+    <p><strong>successIndicator:</strong> {{ successIndicator }}</p>
+    <div style="text-align: right">
+        <button class="btn btn-blue" (click)="Pagar(totalPrice())">Pagar</button>
+    </div>
+</ng-container>

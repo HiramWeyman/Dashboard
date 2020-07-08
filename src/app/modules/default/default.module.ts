@@ -11,7 +11,11 @@ import { MatSidenavModule,
          MatPaginatorModule, 
          MatTableModule,
          MatFormFieldModule,
-         MatSelectModule } from '@angular/material';
+         MatSelectModule,
+         MatButtonModule,
+         MatBadgeModule,
+         MatIconModule,
+         MatToolbarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReceiptComponent } from '../receipt/receipt.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +44,11 @@ import { PAGES_ROUTES } from './default.routes';
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
-    MatSelectModule,
+    MatSelectModule, 
+    MatButtonModule,
+    MatBadgeModule,
+    MatIconModule,
+    MatToolbarModule,
     PAGES_ROUTES,
     FormsModule, 
     ReactiveFormsModule

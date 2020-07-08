@@ -14,10 +14,39 @@
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="https://evopaymentsmexico.gateway.mastercard.com/checkout/version/51/checkout.js"
+    data-error="errorCallback"
+    data-cancel="cancelCallback"
+    data-complete="completeCallback">
+  </script>
+
 </head>
 <body>
 
       <app-root></app-root>
-  
+
+
+      <script>
+
+        function errorCallback(error) {
+                          console.log(JSON.stringify(error));
+                    }
+        
+        function cancelCallback() {
+              console.log('Payment cancelled');
+              //location.reload();	
+        }
+        
+        function completeCallback(resultIndicator, sessionVersion) {
+            console.log("resultIndicator: " +resultIndicator);
+            console.log("sessionVersion:" +sessionVersion);
+            //console.log("successIndicator:" +$("#successIndicator").val());   
+            
+        }
+        
+        </script>
+
+
 </body>
 </html>

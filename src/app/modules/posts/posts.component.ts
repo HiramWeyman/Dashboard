@@ -22,11 +22,22 @@ export class PostsComponent implements OnInit {
   monto_Select:string;
   id_Select:string;
 
+  array = new Array();
+  arrayInit = new Array();
+
+  arrayLength: Number = 0;
+
   constructor( private _cp: CatalogoPagoService, private fb: FormBuilder ) { }
 
   ngOnInit() {
 
     //sessionStorage.removeItem("shoppingCart");
+
+    if(sessionStorage .getItem('shoppingCart')){
+      this.arrayInit = JSON.parse(sessionStorage .getItem('shoppingCart'));
+      this.arrayLength = this.arrayInit.length;
+    }
+   
 
     window.scroll(0, 0);
     this.crearFormulario();
@@ -61,18 +72,18 @@ export class PostsComponent implements OnInit {
   }
 
   add(){
-    var array = new Array();
     if (sessionStorage .getItem('shoppingCart') === null) {
-      array = [];
-      array.push({"ID":this.id_Select,"Mount":this.monto_Select,"Descrip":this.text_Select});
-      sessionStorage.setItem('shoppingCart', JSON.stringify(array));
+      this.array = [];
+      this.array.push({"ID":this.id_Select,"Mount":this.monto_Select,"Descrip":this.text_Select});
+      sessionStorage.setItem('shoppingCart', JSON.stringify(this.array));
       Swal.fire('Agregado al carrito', `El articulo ${this.text_Select} fue agregado exitosamente`, 'success');
     }else{
-      array = JSON.parse(sessionStorage .getItem('shoppingCart'));
-      array.push({"ID":this.id_Select,"Mount":this.monto_Select,"Descrip":this.text_Select});
-      sessionStorage.setItem('shoppingCart', JSON.stringify(array));
+      this.array = JSON.parse(sessionStorage .getItem('shoppingCart'));
+      this.array.push({"ID":this.id_Select,"Mount":this.monto_Select,"Descrip":this.text_Select});
+      sessionStorage.setItem('shoppingCart', JSON.stringify(this.array));
       Swal.fire('Agregado al carrito', `El articulo ${this.text_Select} fue agregado exitosamente`, 'success');
     }
+    this.arrayLength = this.array.length;
     this.forma.get('servicios').setValue('');
     this.id_Select = "";
     this.text_Select = "";

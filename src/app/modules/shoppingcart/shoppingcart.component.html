@@ -1,5 +1,13 @@
 <link rel="stylesheet" href="../../../assets/css/login.css">
 
+<!--
+<script src="https://evopaymentsmexico.gateway.mastercard.com/checkout/version/51/checkout.js"
+data-error="errorCallback"
+data-cancel="cancelCallback"
+data-complete="completeCallback">
+</script>
+
+-->
 <div class="alert alert-dark" role="alert">
     
     <h3>Mi carrito de compras</h3>
@@ -51,6 +59,6 @@
     <p><strong>session_id:</strong> {{ session_id }}</p>
     <p><strong>successIndicator:</strong> {{ successIndicator }}</p>
     <div style="text-align: right">
-        <button class="btn btn-blue" (click)="Pagar(totalPrice())">Pagar</button>
+        <button class="btn btn-blue" (click)="Pagar(totalPrice());">Pagar</button>
     </div>
 </ng-container>

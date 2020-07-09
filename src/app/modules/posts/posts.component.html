@@ -18,15 +18,22 @@
       </select>
     </div> 
   </div>
+
+  <div class="alert alert-info">
+    <strong>Descripción</strong><br>
+    <h3>{{ this.text_Select }}</h3><br>
+    <strong>Precio Unitario</strong><br>
+    <h4>{{ this.precioUnit | currency }}</h4>
+    <strong>Costo</strong><br>
+    <h4>{{ this.monto_Select | currency }}</h4>
+    <strong>Cantidad</strong><br>
+    <small *ngIf="cantidadNovalido" class="text-danger">
+      Ingrese una cantidad
+    </small>
+    <input class="form-control" formControlName="cantidad" type="number" max="999" min="1" value="1" [class.is-invalid]="cantidadNovalido" (click)="suma()" (blur)="suma()">
+  </div>
+  <div class="col-sm-4">
+    <button class="btn btn-blue btn-sm" [disabled]="!forma.valid" (click)="add()">Añadir al carrito</button>
+  </div>
+
 </form>
-
-<div class="alert alert-info">
-  <strong>Descripción</strong><br>
-  <h3>{{ this.text_Select }}</h3><br>
-  <strong>Costo</strong><br>
-  <h4>{{ this.monto_Select | currency }}</h4>
-</div>
-<div class="col-sm-4">
-  <button class="btn btn-blue btn-sm" [disabled]="ToggleButton" (click)="add()">Añadir al carrito</button>
-</div>
-

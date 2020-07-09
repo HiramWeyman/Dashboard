@@ -35,14 +35,15 @@
         
         function cancelCallback() {
               console.log('Payment cancelled');
-              //location.reload();	
+              alert('algo');
+              //window.location.href = 'http://localhost:4200/recibos';
         }
         
         function completeCallback(resultIndicator, sessionVersion) {
             console.log("resultIndicator: " +resultIndicator);
             console.log("sessionVersion:" +sessionVersion);
             //console.log("successIndicator:" +$("#successIndicator").val());   
-            
+            window.location.href = 'http://localhost:4200/recibos';
         }
         
         </script>

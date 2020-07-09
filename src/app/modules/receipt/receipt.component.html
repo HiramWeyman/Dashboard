@@ -1,1 +1,16 @@
-<p>receipt works!</p>
+<table class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th>Descripción del pago</th>
+            <th>Monto</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let recibo of recibos">
+            <td>{{ recibo.pago_concepto }}</td>
+            <td style="text-align: right;">{{ recibo.pago_montoapagar | currency}}</td>
+            <td> aqui va boton para imprimir recibo </td>
+        </tr>
+    </tbody>
+</table>

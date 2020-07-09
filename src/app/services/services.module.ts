@@ -8,6 +8,7 @@ import { ValidadoresService } from './validadores.service';
 import { ErroresService } from './manejo_errores/errores.service';
 import { EvoService } from './dashboard/evo.service';
 import { CatalogoPagoService } from './dashboard/catalogoPago.service';
+import { PagoServiciosService } from './dashboard/pagoServicios/pagoservicios.service';
 
 import { LoginGuard } from './guards/login.guard';
 
@@ -25,6 +26,7 @@ import { LoginGuard } from './guards/login.guard';
     ErroresService,
     EvoService,
     CatalogoPagoService,
+    PagoServiciosService
   ]
 })
 export class ServicesModule { }

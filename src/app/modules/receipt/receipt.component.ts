@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EvoService } from '../../services/dashboard/evo.service';
+import { PagoServiciosService } from '../../services/dashboard/pagoServicios/pagoservicios.service';
 
 @Component({
   selector: 'app-receipt',
@@ -8,17 +8,19 @@ import { EvoService } from '../../services/dashboard/evo.service';
 })
 export class ReceiptComponent implements OnInit {
 
-  constructor( private _evo: EvoService ) { }
+  recibos: any;
+  constructor( private _ps: PagoServiciosService ) { }
 
   ngOnInit() {
 
-    /*
-    this._evo.getEvo('10','100').subscribe(
-      (variables) => {
-        console.log(variables);
+
+    this._ps.getRecibos().subscribe(
+      (recibos) => {
+        this.recibos = recibos
+        console.log(recibos);
       }
     )
-    */
+
   }
 
 }

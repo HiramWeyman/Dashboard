@@ -17,9 +17,9 @@ export class DefaultComponent implements OnInit {
   ngOnInit() { 
 
     if (sessionStorage.getItem('Login') != null && sessionStorage.getItem('Tipo') != null) {
-      console.log("si entra");
+      console.log("");
     }else{
-      console.log("no deberia de entrar");
+      //console.log("no deberia de entrar");
       this.router.navigate(['']);
     }
 

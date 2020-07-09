@@ -31,6 +31,9 @@ export class LoginService {
     sessionStorage.removeItem('Login');
     sessionStorage.removeItem('Tipo');
     sessionStorage.removeItem('shoppingCart');
+    //sessionStorage.removeItem('usuID');
+    sessionStorage.removeItem('Ures');
+    sessionStorage.removeItem('Persona');
 		// sessionStorage.removeItem(_TOKEN);
 		this.router.navigate(['']);
   }

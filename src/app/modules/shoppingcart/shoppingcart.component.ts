@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EvoService } from '../../services/dashboard/evo.service';
+import { PagoServiciosService } from '../../services/dashboard/pagoServicios/pagoservicios.service';
+import { Subscription } from 'rxjs';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import Swal from 'sweetalert2';
+import {Router, ActivatedRoute} from '@angular/router';
 
 declare const Checkout,showLightbox:any
 
@@ -28,8 +33,7 @@ export class ShoppingcartComponent implements OnInit {
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.innerHTML = "function cancelCallback() {"+
-                       " console.log('Payment cancelled');"+
-                       " window.location.replace = 'http://localhost:4200/recibos';}";
+                       " console.log('Payment cancelled');}";
     script.async = false;
     script.defer = true;
     body.appendChild(script);
@@ -53,7 +57,7 @@ export class ShoppingcartComponent implements OnInit {
     script.innerHTML = "function completeCallback(resultIndicator, sessionVersion) {"+
                        " console.log('resultIndicator: ' +resultIndicator);"+
                        " console.log('sessionVersion:' +sessionVersion);"+
-                       " window.location.href = 'http://localhost:4200/recibos';}";
+                       " router.navigateByUrl('/recibos');}";
     script.async = false;
     script.defer = true;
     body.appendChild(script);
@@ -65,7 +69,7 @@ export class ShoppingcartComponent implements OnInit {
     script.type = 'text/javascript';
     script.innerHTML = "Checkout.configure({"+
     	"merchant: 'TEST1125660',"+
-        "order: {description: 'Pago de servicios',amount: '100',currency: 'MXN',id: '13'},"+
+        "order: {description: 'Pago de servicios',amount: '100',currency: 'MXN',id: '"+this.ID+"'},"+
         "interaction: {merchant: {name: 'UJED',address: {line1: 'Calle Constitución 404, Zona Centro, 34100 Durango, Dgo.'}},"+
             "displayControl : {billingAddress : 'HIDE'},},"+
 		    "session: {id:  '"+this.session_id+"'},"+
@@ -75,30 +79,71 @@ export class ShoppingcartComponent implements OnInit {
     body.appendChild(script);
   }
 
+  forma: FormGroup;
+
+  private subscription: Subscription;
+
   ecomServices: any[];
 
   session_id:string;
   successIndicator:string;
+  ID:string;
+  total = 0;
 
-  constructor( private _evo: EvoService ) { }
+  constructor( private _evo: EvoService, private _ps: PagoServiciosService, private fb: FormBuilder,
+               public router: Router ) { }
 
   ngOnInit() {
+  
+    this.subscription = this._ps.getTsqpagosonline()
+      .subscribe((data: any) => {
+        this.ID = data;
+        //console.log(data);
+        })	
 
-    //this.loadScript();
     this.cancelCallbackScript();
     this.errorCallbackScript();
 
     this.ecomServices = JSON.parse(sessionStorage.getItem('shoppingCart'));
-    //console.log(this.ecomServices);
+
+    this.totalPrice();
+    
+    this.crearFormulario();
 
   }
 
+  get conceptoNovalido(){
+    return this.forma.get('pago_concepto').invalid && this.forma.get('pago_concepto').touched
+  }
+
+  get metodoPagoNovalido(){
+    return this.forma.get('metodoPago').invalid && this.forma.get('metodoPago').touched
+  }
+
+  crearFormulario(){
+
+    this.forma = this.fb.group({
+      pago_concepto: ['', [Validators.required,Validators.maxLength(150)]],
+      metodoPago: ['', Validators.required],
+      pago_referencia: [this.ID],
+      pago_montoapagar: [this.total],
+      pago_userid: [sessionStorage.getItem('Login')]
+    });
+
+  } 
+
+  ngOnDestroy() {
+		if (this.subscription !== undefined) {
+			this.subscription.unsubscribe();
+		}
+  }
+
   totalPrice() {
-    let total = 0;
+    this.total = 0;
     for(let data of this.ecomServices){
-      total += parseFloat(data.Mount);
+      this.total += parseFloat(data.Mount);
     }
-    return total;
+    return this.total;
   }
 
   deleteItem(ID){
@@ -114,8 +159,56 @@ export class ShoppingcartComponent implements OnInit {
   }
 
 
-  Pagar(Mount){
-    this._evo.getEvo('11',Mount).subscribe(
+  Pagar(){
+    console.log(this.forma);
+    if (this.forma.invalid){
+      return Object.values( this.forma.controls ).forEach( control =>{
+        control.markAsTouched();
+      })
+    }else{
+      this._ps.create(this.forma.value).subscribe(usr => {
+        //this.router.navigate(['']);
+          Swal.fire('Datos Guardados', 'Se te redireccionara al portal de pago', 'success');
+          sessionStorage.removeItem('shoppingCart');
+          this._evo.getEvo(this.ID,usr.pago_montoapagar).subscribe(
+            (variables) => {
+              this.session_id = variables.session_id;
+              this.successIndicator = variables.successIndicator;
+              console.log(variables);
+              Swal.close()
+              this.Checkout();
+              Checkout.showLightbox().subscribe(
+                (x)=>{
+                  Swal.fire('Pago realizado', 'success');
+                }
+              )
+            }
+          )
+          
+      },
+      error => {
+        console.log(error);
+        Swal.fire({
+          title: 'ERROR!!!',
+          text: error.error.message,
+          icon: 'error'});
+      })
+    }
+    /*
+    this._ps.create(this.forma.value).subscribe(usr => {
+      this.router.navigate(['']);
+        Swal.fire('Nuevo usuario', `Usuario ${usr.usua_usuario} creado con éxito!`, 'success');
+        //this.cargarUsers();
+    },
+    error => {
+        console.log(error);
+        Swal.fire({
+          title: 'ERROR!!!',
+          text: error,
+          icon: 'error'});
+      })
+
+    this._evo.getEvo(this.ID,Mount).subscribe(
       (variables) => {
         this.session_id = variables.session_id;
         this.successIndicator = variables.successIndicator;
@@ -124,6 +217,7 @@ export class ShoppingcartComponent implements OnInit {
         Checkout.showLightbox();
       }
     )
+    */
   }
 
 

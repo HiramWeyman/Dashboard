@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 import {Router, ActivatedRoute} from '@angular/router';
+import { Observable } from 'rxjs/Rx'; 
+import { promise } from 'protractor';
 
 declare const Checkout,showLightbox:any
 
@@ -21,7 +23,7 @@ export class ShoppingcartComponent implements OnInit {
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.innerHTML = '';
-    script.src = "https://evopaymentsmexico.gateway.mastercard.com/checkout/version/51/checkout.js";
+    script.src = "https://cdn.jsdelivr.net/npm/sweetalert2@9";
     script.async = false;
     script.defer = true;
     body.appendChild(script);
@@ -57,7 +59,7 @@ export class ShoppingcartComponent implements OnInit {
     script.innerHTML = "function completeCallback(resultIndicator, sessionVersion) {"+
                        " console.log('resultIndicator: ' +resultIndicator);"+
                        " console.log('sessionVersion:' +sessionVersion);"+
-                       " router.navigateByUrl('/recibos');}";
+                       " Swal.fire({icon: 'success',title: 'Pago exitoso!!!',text: 'Puedes descargar tu pago en la sección de recibos',showConfirmButton: false,timer: 1500});}";
     script.async = false;
     script.defer = true;
     body.appendChild(script);
@@ -127,7 +129,8 @@ export class ShoppingcartComponent implements OnInit {
       metodoPago: ['', Validators.required],
       pago_referencia: [this.ID],
       pago_montoapagar: [this.total],
-      pago_userid: [sessionStorage.getItem('Login')]
+      pago_userid: [sessionStorage.getItem('Login')],
+      pago_estatus: ['P']
     });
 
   } 
@@ -160,21 +163,54 @@ export class ShoppingcartComponent implements OnInit {
 
 
   Pagar(){
-    console.log(this.forma);
+    //console.log(this.forma);
     if (this.forma.invalid){
       return Object.values( this.forma.controls ).forEach( control =>{
         control.markAsTouched();
       })
     }else{
-      this._ps.create(this.forma.value).subscribe(usr => {
-        //this.router.navigate(['']);
+      this._ps.create(this.forma.value).subscribe(master => {
+        Swal.fire({icon: 'success',title: 'Datos Guardados',text: 'Se te redireccionara al portal de pago',showConfirmButton: false,timer: 3000});
+        sessionStorage.removeItem('shoppingCart');
+        this._evo.getEvo(this.ID,master.pago_montoapagar).subscribe(
+          (variables) => {
+            this.session_id = variables.session_id;
+            this.successIndicator = variables.successIndicator;
+            this.router.navigate(['dashboard']);
+                   
+            
+            return new Promise(resolve => {
+              this.Checkout();
+              Checkout.showLightbox();
+              resolve(
+                /*
+                this._ps.updateMaster(master.pago_userid).subscribe(res => {
+                  console.log(res);
+                  
+                },
+                error => {
+                  console.log(error);
+                  Swal.fire({
+                    title: 'ERROR!!!',
+                    text: error.error.message,
+                    icon: 'error'});
+                })
+                */
+              );
+            })
+          }
+        )
+
+        /*
+        let IDMaster= master.pago_folpago.toString();
+        this._ps.createDetail(JSON.parse(sessionStorage.getItem('shoppingCart')),IDMaster).subscribe(detail => {
           Swal.fire('Datos Guardados', 'Se te redireccionara al portal de pago', 'success');
           sessionStorage.removeItem('shoppingCart');
-          this._evo.getEvo(this.ID,usr.pago_montoapagar).subscribe(
+          this._evo.getEvo(this.ID,master.pago_montoapagar).subscribe(
             (variables) => {
               this.session_id = variables.session_id;
               this.successIndicator = variables.successIndicator;
-              console.log(variables);
+              //console.log(variables);
               Swal.close()
               this.Checkout();
               Checkout.showLightbox().subscribe(
@@ -185,6 +221,15 @@ export class ShoppingcartComponent implements OnInit {
             }
           )
           
+        },
+        error => {
+          console.log(error);
+          Swal.fire({
+            title: 'ERROR!!!',
+            text: error.error.message,
+            icon: 'error'});
+        })
+        */
       },
       error => {
         console.log(error);
@@ -194,30 +239,7 @@ export class ShoppingcartComponent implements OnInit {
           icon: 'error'});
       })
     }
-    /*
-    this._ps.create(this.forma.value).subscribe(usr => {
-      this.router.navigate(['']);
-        Swal.fire('Nuevo usuario', `Usuario ${usr.usua_usuario} creado con éxito!`, 'success');
-        //this.cargarUsers();
-    },
-    error => {
-        console.log(error);
-        Swal.fire({
-          title: 'ERROR!!!',
-          text: error,
-          icon: 'error'});
-      })
-
-    this._evo.getEvo(this.ID,Mount).subscribe(
-      (variables) => {
-        this.session_id = variables.session_id;
-        this.successIndicator = variables.successIndicator;
-        console.log(variables);
-        this.Checkout();
-        Checkout.showLightbox();
-      }
-    )
-    */
+   
   }
 
 

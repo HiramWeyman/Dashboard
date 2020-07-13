@@ -12,12 +12,14 @@ import { SharedModule } from './shared/shared.module';
 import { DefaultModule } from './modules/default/default.module';
 import { ServicesModule } from './services/services.module';
 import { ShoppingcartComponent } from './modules/shoppingcart/shoppingcart.component';
+import { DiscountComponent } from './modules/discount/discount.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShoppingcartComponent
+    ShoppingcartComponent,
+    DiscountComponent
   ],
   imports: [
     BrowserModule,

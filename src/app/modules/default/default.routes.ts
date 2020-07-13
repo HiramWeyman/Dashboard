@@ -7,6 +7,7 @@ import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.componen
 import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { ReceiptComponent } from '../receipt/receipt.component';
 import { ShoppingcartComponent } from '../shoppingcart/shoppingcart.component';
+import { DiscountComponent } from '../discount/discount.component';
 const pagesRoutes: Routes = [
 	{
 		path: '',
@@ -16,7 +17,8 @@ const pagesRoutes: Routes = [
 			{ path: 'dashboard', component: DashboardComponent },
 			{ path: 'posts', component: PostsComponent },
 			{ path: 'recibos', component: ReceiptComponent },
-			{ path: 'shoppingcart', component: ShoppingcartComponent }
+			{ path: 'shoppingcart', component: ShoppingcartComponent },
+			{ path: 'descuentos', component: DiscountComponent }
 		]
 	}
 ];

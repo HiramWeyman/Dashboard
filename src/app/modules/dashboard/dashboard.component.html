@@ -2,3 +2,15 @@
     <h3>Bienvenido: </h3>
     <h2><strong>{{ usuario.usua_nombre }}</strong></h2>
 </ng-container>
+
+<hr>
+
+<ng-container *ngIf="descuentos?.length > 0">
+<div class="card" style="background-color: #d9d9d9;">
+    <div class="container">
+      <h3><b>Descuentos</b></h3> 
+        <a routerLink="/descuentos"> <p>Usted tiene ({{ this.count }}) descuento(s)</p> 
+        </a>
+    </div>
+  </div>
+</ng-container>

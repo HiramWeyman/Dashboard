@@ -21,6 +21,8 @@
     data-complete="completeCallback">
   </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 </head>
 <body>
 
@@ -35,15 +37,13 @@
         
         function cancelCallback() {
               console.log('Payment cancelled');
-              alert('algo');
-              //window.location.href = 'http://localhost:4200/recibos';
         }
         
         function completeCallback(resultIndicator, sessionVersion) {
             console.log("resultIndicator: " +resultIndicator);
             console.log("sessionVersion:" +sessionVersion);
             //console.log("successIndicator:" +$("#successIndicator").val());   
-            window.location.href = 'http://localhost:4200/recibos';
+            Swal.fire({icon: 'success',title: 'Pago exitoso!!!',text: 'Puedes descargar tu recibo de pago en la sección de recibos',showConfirmButton: false,timer: 3000});
         }
         
         </script>

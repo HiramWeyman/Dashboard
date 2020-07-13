@@ -85,14 +85,14 @@ export class PostsComponent implements OnInit {
   add(){
     if (sessionStorage .getItem('shoppingCart') === null) {
       this.array = [];
-      this.array.push({"ID":this.id_Select, "Mount":this.monto_Select, "Descrip":this.text_Select,
-                       "Cant":this.forma.get('cantidad').value, "PUnit":this.precioUnit,});
+      this.array.push({"dpago_idingreso":this.id_Select, "Mount":this.monto_Select, "Descrip":this.text_Select,
+                       "dpago_cantidad":this.forma.get('cantidad').value, "dpago_punit":this.precioUnit,});
       sessionStorage.setItem('shoppingCart', JSON.stringify(this.array));
       Swal.fire('Agregado al carrito', `El articulo ${this.text_Select} fue agregado exitosamente`, 'success');
     }else{
       this.array = JSON.parse(sessionStorage .getItem('shoppingCart'));
-      this.array.push({"ID":this.id_Select, "Mount":this.monto_Select, "Descrip":this.text_Select,
-                       "Cant":this.forma.get('cantidad').value, "PUnit":this.precioUnit,});
+      this.array.push({"dpago_idingreso":this.id_Select, "Mount":this.monto_Select, "Descrip":this.text_Select,
+                       "dpago_cantidad":this.forma.get('cantidad').value, "dpago_punit":this.precioUnit,});
       sessionStorage.setItem('shoppingCart', JSON.stringify(this.array));
       Swal.fire('Agregado al carrito', `El articulo ${this.text_Select} fue agregado exitosamente`, 'success');
     }

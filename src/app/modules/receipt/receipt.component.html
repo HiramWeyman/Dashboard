@@ -9,7 +9,7 @@
     <tbody>
         <tr *ngFor="let recibo of recibos">
             <td>{{ recibo.pago_concepto }}</td>
-            <td style="text-align: right;">{{ recibo.pago_montoapagar | currency}}</td>
+            <td style="text-align: center;">{{ recibo.pago_montoapagar | currency}}</td>
             <td> aqui va boton para imprimir recibo </td>
         </tr>
     </tbody>

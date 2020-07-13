@@ -1,41 +1,42 @@
 <link rel="stylesheet" href="../../../assets/css/login.css">
 
-<!--
-<script src="https://evopaymentsmexico.gateway.mastercard.com/checkout/version/51/checkout.js"
-data-error="errorCallback"
-data-cancel="cancelCallback"
-data-complete="completeCallback">
-</script>
-
--->
 <form class="row" [formGroup]="forma" (ngSubmit)="Pagar()">
-    <div class="alert alert-dark" role="alert">
-        
-        <h3>Mi carrito de compras</h3>
+<div class="alert alert-dark" role="alert">
+    <div class="row" style="display: flex;">
+        <div class="selectWrapper col-sm-10" >
+        <select formControlName="descuentos" (change)="valuesSelect($event.target.value);">
+            <option value="" selected disabled> - Seleccione un descuento - </option>
+            <option *ngFor="let descuento of descuentos" [value]='descuento.vdes_id'>{{ descuento.vdes_concepto }}</option>
+        </select>
+        </div> 
+    </div>
 
-    <ng-container *ngIf="ecomServices?.length > 0">
+    <ng-container *ngIf="descuentos?.length > 0">
         <table class="table table-hover table-sm">
             <thead>
                 <tr>
-                    <th></th>
                     <th>Cantidad</th>
                     <th>Descripcion</th>
                     <th>P. Unit.</th>
                     <th>Importe</th>
+                    <th>%</th>
+                    <th>Descto</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let es of ecomServices">
-                    <td style="width: 10%;"><button class="btn btn-primary btn-sm" (click)="deleteItem(es.ID)">X</button></td>
-                    <td style="text-align: center; width: 10%;">{{ es.dpago_cantidad }}</td>
-                    <td>{{ es.Descrip }}</td>
-                    <td style="text-align: center;">{{ es.dpago_punit | currency }}</td>
-                    <td style="text-align: center;">{{ es.Mount | currency }}</td>
+                <tr>
+                    <td style="text-align: center; width: 10%;">{{ items.vdes_cantidad }}</td>
+                    <td style="text-align: center; width: 50%;">{{ items.vdes_concepto }}</td>
+                    <td style="text-align: center;">{{ items.vdes_punit  | currency}}</td>
+                    <td style="text-align: center;">{{ items.vdes_importe  | currency}}</td>
+                    <td style="text-align: center; width: 10%;">{{ items.vdes_porc  | currency}}</td>
+                    <td style="text-align: center;">{{ items.vdes_monto_descto  | currency}}</td>
                 </tr>
                 <tr style="text-align: right;">
-                    <th colspan="4">Total:</th>
+                    <th colspan="5">Total:</th>
                     <td style="text-align: center;">
-                        <strong>{{ this.total | currency  }}</strong>
+                        <strong>{{ items.vdes_a_pagar  | currency}}</strong>
+                        <input type="hidden" formControlName="pago_foldescto" value="">
                         <input type="hidden" formControlName="pago_referencia" [(ngModel)]="this.ID">
                         <input type="hidden" formControlName="pago_montoapagar" value="">
                         <input type="hidden" formControlName="pago_userid" value="">
@@ -43,7 +44,7 @@ data-complete="completeCallback">
                     </td>
                 </tr>
                 <tr style="text-align: left;">
-                    <th colspan="4">
+                    <th colspan="5">
                         <small *ngIf="metodoPagoNovalido" class="text-danger">
                             Selecciona un metodo de pago
                         </small>
@@ -63,19 +64,14 @@ data-complete="completeCallback">
         </small>
         <input type="text" class="form-control" maxlength="150" formControlName="pago_concepto" autocomplete="off" [class.is-invalid]="conceptoNovalido" placeholder="Descripción">
     </ng-container>
-    <ng-container *ngIf="ecomServices?.length == 0">
-        <div style="text-align: center;">
-            <h4>El carrito esta vacio</h4>
-        </div>
-    </ng-container>
-    </div>
+</div>
 
-    <ng-container *ngIf="ecomServices?.length > 0">
+    <ng-container *ngIf="descuentos?.length > 0">
         <div style="text-align: right">
-            <button class="btn btn-primary" routerLink="/posts">Regresar</button>
             <button class="btn btn-blue" [disabled]="!forma.valid">Pagar</button>
         </div>
         <p><strong>session_id:</strong> {{ session_id }}</p>
         <p><strong>successIndicator:</strong> {{ successIndicator }}</p>
     </ng-container>
+
 </form>

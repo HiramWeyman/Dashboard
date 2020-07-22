@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Descuentos } from '../../services/dashboard/descuentos/descuentos';
 import {Router, ActivatedRoute} from '@angular/router';
 import { EvoService } from '../../services/dashboard/evo.service';
+import { Tvdescuentos } from './tvdescuentos';
 
 declare const Checkout,showLightbox:any
 
@@ -36,14 +37,17 @@ export class DiscountComponent implements OnInit {
   private subscription: Subscription;
 
   descuentos: Descuentos[];
+  descuentosdet: Descuentos[];
 
   session_id:string;
   successIndicator:string;
   ID:string;
 
-  items: any;
+  public items: any = "";
 
   forma: FormGroup;
+
+  total = 0;
 
   constructor( private _ds: DescuentosService, private fb: FormBuilder, private _ps: PagoServiciosService,
                public router: Router, private _evo: EvoService ) { }
@@ -62,22 +66,31 @@ export class DiscountComponent implements OnInit {
     this._ds.getDescuento().subscribe(
       (descuentos) => {
         this.descuentos = descuentos
-        console.log(descuentos);
       }
     )
 
   }
 
   valuesSelect(values){
-    console.log(values);
-    for (var i=0;i<this.descuentos.length;i++){
-      if (this.descuentos[i].vdes_id == values){
-        this.items = this.descuentos[i];
-        console.log(this.items);
-        this.forma.get('pago_foldescto').setValue(this.items.vdes_id);
-        this.forma.get('pago_montoapagar').setValue(this.items.vdes_a_pagar);
+    //console.log(values);
+    this.forma.get('pago_foldescto').setValue(values);
+    
+    this._ds.getDescuentoDet().subscribe(
+      (descuentosdet) => {
+        this.descuentosdet = descuentosdet
+        //console.log(descuentosdet);
+        this.totalPrice(this.descuentosdet);
       }
+    )
+  }
+
+  totalPrice(datosdet: any) {
+    this.total = 0;
+    for(let data of datosdet){
+      this.total += parseFloat(data.vdes_a_pagar);
     }
+    this.forma.get('pago_montoapagar').setValue(this.total);
+    return this.total;
   }
 
   get conceptoNovalido(){
@@ -127,6 +140,7 @@ export class DiscountComponent implements OnInit {
               this.Checkout();
               Checkout.showLightbox();
               resolve(
+                sessionStorage.MasterID = master.pago_folpago.toString()
                 /*
                 this._ps.updateMaster(master.pago_userid).subscribe(res => {
                   console.log(res);

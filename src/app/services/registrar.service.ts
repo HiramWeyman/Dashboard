@@ -15,11 +15,22 @@ import { map } from 'rxjs/operators';
 })
 export class RegistrarService {
 
+  public urlEndPoint = `${environment.rutaAPI}`;
+
   constructor( private http: HttpClient ) { }
 
   getTtipouser(): Observable<Ttipouser[]> {
     return this.http.get(`${environment.rutaAPI}` + '/ttipouser').pipe(
       map(response => response as Ttipouser[])
+    );
+  }
+
+
+  getTipouser(){
+    return this.http.get(this.urlEndPoint + '/ttipouser/10').pipe(
+      map((response: any) => {
+        return response;
+        })
     );
   }
 

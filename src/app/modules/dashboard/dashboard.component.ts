@@ -3,6 +3,7 @@ import { RegistrarService } from '../../services/registrar.service';
 import { Usuarios } from '../../shared/registrar/usuarios';
 import { DescuentosService } from '../../services/dashboard/descuentos/descuentos.service'; 
 import { Descuentos } from '../../services/dashboard/descuentos/descuentos';
+import { Ttipouser } from '../../shared/registrar/ttipouser';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,10 @@ import { Descuentos } from '../../services/dashboard/descuentos/descuentos';
 })
 export class DashboardComponent implements OnInit {
 
+  today: number = Date.now();
+
   usuarios:Usuarios[];
+  tusuario:Ttipouser[];
   descuentos: Descuentos[];
   count: Number;
 
@@ -24,6 +28,13 @@ export class DashboardComponent implements OnInit {
       (usuarios) => {
         this.usuarios = usuarios;
         //console.log(this.usuarios);
+      }
+    )
+
+    this._reg.getTipouser().subscribe(
+      (tusuario) => {
+        this.tusuario = tusuario;
+        //console.log(tusuario);
       }
     )
 

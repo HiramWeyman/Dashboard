@@ -6,7 +6,7 @@
         <div class="selectWrapper col-sm-10" >
         <select formControlName="descuentos" (change)="valuesSelect($event.target.value);">
             <option value="" selected disabled> - Seleccione un descuento - </option>
-            <option *ngFor="let descuento of descuentos" [value]='descuento.vdes_id'>{{ descuento.vdes_concepto }}</option>
+            <option *ngFor='let descuento of descuentos' value='{{ descuento.desc_foliodesc }}'>{{ descuento.desc_descrip }}</option>
         </select>
         </div> 
     </div>
@@ -24,18 +24,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="text-align: center; width: 10%;">{{ items.vdes_cantidad }}</td>
-                    <td style="text-align: center; width: 50%;">{{ items.vdes_concepto }}</td>
-                    <td style="text-align: center;">{{ items.vdes_punit  | currency}}</td>
-                    <td style="text-align: center;">{{ items.vdes_importe  | currency}}</td>
-                    <td style="text-align: center; width: 10%;">{{ items.vdes_porc  | currency}}</td>
-                    <td style="text-align: center;">{{ items.vdes_monto_descto  | currency}}</td>
+                <tr *ngFor="let dd of descuentosdet">
+                    <td style="text-align: center; width: 10%;">{{ dd.vdes_cantidad }}</td>
+                    <td style="text-align: left; width: 50%;">{{ dd.vdes_concepto }}</td>
+                    <td style="text-align: center;">{{ dd.vdes_punit  | currency:"MXN":"symbol" }}</td>
+                    <td style="text-align: center;">{{ dd.vdes_importe  | currency:"MXN":"symbol" }}</td>
+                    <td style="text-align: center; width: 10%;">{{ dd.vdes_porc  | currency:"MXN":"symbol" }}</td>
+                    <td style="text-align: center;">{{ dd.vdes_monto_descto  | currency:"MXN":"symbol" }}</td>
                 </tr>
                 <tr style="text-align: right;">
                     <th colspan="5">Total:</th>
                     <td style="text-align: center;">
-                        <strong>{{ items.vdes_a_pagar  | currency}}</strong>
+                        <strong>{{ this.total | currency:"MXN":"symbol" }}</strong>
                         <input type="hidden" formControlName="pago_foldescto" value="">
                         <input type="hidden" formControlName="pago_referencia" [(ngModel)]="this.ID">
                         <input type="hidden" formControlName="pago_montoapagar" value="">
@@ -62,7 +62,14 @@
         <small *ngIf="conceptoNovalido" class="text-danger">
             Ingrese una descripción
         </small>
-        <input type="text" class="form-control" maxlength="150" formControlName="pago_concepto" autocomplete="off" [class.is-invalid]="conceptoNovalido" placeholder="Descripción">
+        <input type="text" 
+                class="form-control" 
+                maxlength="150" 
+                formControlName="pago_concepto" 
+                autocomplete="off" 
+                [class.is-invalid]="conceptoNovalido" 
+                placeholder="Descripción"
+                oninput="this.value = this.value.toUpperCase()">
     </ng-container>
 </div>
 
@@ -70,8 +77,10 @@
         <div style="text-align: right">
             <button class="btn btn-blue" [disabled]="!forma.valid">Pagar</button>
         </div>
+        <!--
         <p><strong>session_id:</strong> {{ session_id }}</p>
         <p><strong>successIndicator:</strong> {{ successIndicator }}</p>
+        -->
     </ng-container>
 
 </form>

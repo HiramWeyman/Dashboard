@@ -7,5 +7,4 @@ export class TpagosOnline {
     pago_montoapagar: string;
     pago_referencia: string;
     pago_estatus: string;
-    
 }

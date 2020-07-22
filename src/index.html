@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Dashboard</title>
+  <title>Portal Tesorería</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" href="./assets/images/favicon.png" type="image/x-icon">
 
   <link href="assets/css/style.css" rel="stylesheet"/>
 
@@ -22,6 +22,8 @@
   </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -43,10 +45,29 @@
             console.log("resultIndicator: " +resultIndicator);
             console.log("sessionVersion:" +sessionVersion);
             //console.log("successIndicator:" +$("#successIndicator").val());   
-            Swal.fire({icon: 'success',title: 'Pago exitoso!!!',text: 'Puedes descargar tu recibo de pago en la sección de recibos',showConfirmButton: false,timer: 3000});
+            Swal.fire({icon: 'success',title: 'Pago exitoso!!!',text: 'Puedes descargar tu recibo de pago en la sección de recibos',showConfirmButton: false,timer: 4000});
+            updateMaster();
         }
         
+        function updateMaster(){
+          //this.http.put('http://localhost:8090/api/tpagosonline/{id}'+sessionStorage.getItem('MasterID'));
+
+          var ID = sessionStorage.getItem('MasterID');
+
+          $.ajax({
+                    //url: 'http://localhost:8090/api/tpagosonline/'+ID, 
+                    url: 'http://192.168.1.190:8090/api/tpagosonline/'+ID, 
+                    type: 'PUT',   //type is any HTTP method
+                    data: {'id':ID},      //Data as js object
+                    success: function () {
+                      sessionStorage.removeItem('MasterID');
+                    }
+                })
+                ;
+        }        
         </script>
+
+
 
 
 </body>

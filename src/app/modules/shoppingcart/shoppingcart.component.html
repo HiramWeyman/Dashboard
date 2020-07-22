@@ -26,16 +26,16 @@ data-complete="completeCallback">
             </thead>
             <tbody>
                 <tr *ngFor="let es of ecomServices">
-                    <td style="width: 10%;"><button class="btn btn-primary btn-sm" (click)="deleteItem(es.ID)">X</button></td>
+                    <td style="width: 10%;"><button class="btn btn-primary btn-sm" (click)="deleteItem(es.dpago_idingreso)">X</button></td>
                     <td style="text-align: center; width: 10%;">{{ es.dpago_cantidad }}</td>
                     <td>{{ es.Descrip }}</td>
-                    <td style="text-align: center;">{{ es.dpago_punit | currency }}</td>
-                    <td style="text-align: center;">{{ es.Mount | currency }}</td>
+                    <td style="text-align: center;">{{ es.dpago_punit | currency:"MXN":"symbol" }}</td>
+                    <td style="text-align: center;">{{ es.Mount | currency:"MXN":"symbol" }}</td>
                 </tr>
                 <tr style="text-align: right;">
                     <th colspan="4">Total:</th>
                     <td style="text-align: center;">
-                        <strong>{{ this.total | currency  }}</strong>
+                        <strong>{{ this.total | currency:"MXN":"symbol" }}</strong>
                         <input type="hidden" formControlName="pago_referencia" [(ngModel)]="this.ID">
                         <input type="hidden" formControlName="pago_montoapagar" value="">
                         <input type="hidden" formControlName="pago_userid" value="">
@@ -50,7 +50,7 @@ data-complete="completeCallback">
                         <select formControlName="metodoPago" class="form-control" [class.is-invalid]="metodoPagoNovalido">
                             <option value="" selected disabled> - Seleccione un metodo de pago - </option>
                             <option value="TC">Tarjeta de Crédito</option>
-                            <option value="TC">Tarjeta de Dédito</option>
+                            <option value="TC">Tarjeta de Débito</option>
                         </select>
                     </th>
                 </tr>
@@ -61,7 +61,14 @@ data-complete="completeCallback">
         <small *ngIf="conceptoNovalido" class="text-danger">
             Ingrese una descripción
         </small>
-        <input type="text" class="form-control" maxlength="150" formControlName="pago_concepto" autocomplete="off" [class.is-invalid]="conceptoNovalido" placeholder="Descripción">
+        <input type="text" 
+                class="form-control" 
+                maxlength="150" 
+                formControlName="pago_concepto" 
+                autocomplete="off" 
+                [class.is-invalid]="conceptoNovalido" 
+                placeholder="Descripción"
+                oninput="this.value = this.value.toUpperCase()">
     </ng-container>
     <ng-container *ngIf="ecomServices?.length == 0">
         <div style="text-align: center;">
@@ -75,7 +82,5 @@ data-complete="completeCallback">
             <button class="btn btn-primary" routerLink="/posts">Regresar</button>
             <button class="btn btn-blue" [disabled]="!forma.valid">Pagar</button>
         </div>
-        <p><strong>session_id:</strong> {{ session_id }}</p>
-        <p><strong>successIndicator:</strong> {{ successIndicator }}</p>
     </ng-container>
 </form>

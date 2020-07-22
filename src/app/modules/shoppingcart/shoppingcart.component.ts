@@ -35,7 +35,9 @@ export class ShoppingcartComponent implements OnInit {
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.innerHTML = "function cancelCallback() {"+
-                       " console.log('Payment cancelled');}";
+                       " console.log('Payment cancelled');"+
+                       //" alert('dddddddddddddd'); "+
+                       " mansaje();}";
     script.async = false;
     script.defer = true;
     body.appendChild(script);
@@ -107,7 +109,7 @@ export class ShoppingcartComponent implements OnInit {
     this.errorCallbackScript();
 
     this.ecomServices = JSON.parse(sessionStorage.getItem('shoppingCart'));
-
+        
     this.totalPrice();
     
     this.crearFormulario();
@@ -149,18 +151,19 @@ export class ShoppingcartComponent implements OnInit {
     return this.total;
   }
 
-  deleteItem(ID){
-    //console.log(ID);
+  deleteItem(dpago_idingreso){
+    console.log("ID: "+dpago_idingreso);
     var items = JSON.parse(sessionStorage.getItem('shoppingCart'));
     for (var i=0;i<items.length;i++){
-      if (items[i].ID == ID){
+      if (items[i].dpago_idingreso == dpago_idingreso){
         items.splice(i,1);
         sessionStorage["shoppingCart"] = JSON.stringify(items);
         this.ecomServices = JSON.parse(sessionStorage.getItem('shoppingCart'));
       }
     }
+    this.totalPrice();
   }
-
+ 
 
   Pagar(){
     //console.log(this.forma);
@@ -176,13 +179,13 @@ export class ShoppingcartComponent implements OnInit {
           (variables) => {
             this.session_id = variables.session_id;
             this.successIndicator = variables.successIndicator;
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['/dashboard']);
                    
-            
             return new Promise(resolve => {
               this.Checkout();
               Checkout.showLightbox();
               resolve(
+                sessionStorage.MasterID = master.pago_folpago.toString()
                 /*
                 this._ps.updateMaster(master.pago_userid).subscribe(res => {
                   console.log(res);

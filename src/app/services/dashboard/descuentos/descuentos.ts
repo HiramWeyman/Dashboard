@@ -11,6 +11,6 @@ export class Descuentos {
     vdes_porc: String;
     vdes_importe: String;
     vdes_monto_descto: String;
-    vdes_a_pagar: String;
+    vdes_a_pagar: string;
      
 }

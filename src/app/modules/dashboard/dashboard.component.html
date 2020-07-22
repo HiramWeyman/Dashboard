@@ -1,6 +1,10 @@
 <ng-container *ngFor="let usuario of usuarios">
     <h3>Bienvenido: </h3>
     <h2><strong>{{ usuario.usua_nombre }}</strong></h2>
+    <span fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" *ngFor="let tu of tusuario">
+      <h4>{{ tu.tipo_descrip }}</h4>
+      <h4>{{today | date:'fullDate':'':'es-MX'}}</h4>
+    </span>
 </ng-container>
 
 <hr>

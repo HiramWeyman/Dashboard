@@ -23,4 +23,13 @@ export class ReceiptComponent implements OnInit {
 
   }
 
+  printInvoice(id) {
+    this._ps.printReceipt(id).subscribe((response) => {
+  
+      const file = new Blob([response], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
+  }
+
 }

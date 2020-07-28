@@ -20,7 +20,7 @@
             <td>{{ recibo.pago_fpago | date:'dd/mm/yyyy' }}</td>
             <td *ngIf="recibo.pago_estatus == 'A' " style="color: rgb(113, 177, 132);"><strong>PAGADO</strong></td><td *ngIf="recibo.pago_estatus == 'P' " style="color: rgb(122, 129, 109);">SIN PAGAR</td>
             <td style="text-align: center;">{{ recibo.pago_montoapagar | currency:"MXN":"symbol" }}</td>
-            <td *ngIf="recibo.pago_estatus == 'A' "><button class="btn btn-blue btn-sm">Recibo</button></td><td *ngIf="recibo.pago_estatus == 'P' "> - </td>
+            <td *ngIf="recibo.pago_estatus == 'A' "><button class="btn btn-blue btn-sm" (click)="printInvoice(recibo.pago_folpago);" >Recibo</button></td><td *ngIf="recibo.pago_estatus == 'P' "> - </td>
         </tr>
     </tbody>
 </table>

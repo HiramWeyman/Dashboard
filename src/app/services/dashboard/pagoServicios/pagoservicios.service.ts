@@ -43,6 +43,15 @@ export class PagoServiciosService {
 
   }
 
+  printReceipt(id): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json'
+      // 'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    
+    return this.http.get<any>(this.urlEndPoint + '/print/' + id, httpOptions);
+     }
+
   create(pagoOnline: TpagosOnline): Observable<TpagosOnline> {
     //const user = sessionStorage.Login;
     return this.http.post<TpagosOnline>(`${environment.rutaAPI + '/tpagosonline'}`, pagoOnline).pipe(

@@ -62,6 +62,19 @@ export class PagoServiciosService {
     );
   }
 
+  createDetalle(folio:string,det: String[]): Observable<TpagosOnline> {
+    //const user = sessionStorage.Login;
+    //console.log(folio);
+    //console.log(det);
+    return this.http.post<String>(`${environment.rutaAPI + '/tdpagosonline?folio='+folio+'&det='+det}`, det).pipe(
+      map((response: any) => {
+        //console.log(response);
+        return response;
+        })
+    );
+  }
+
+
   
   updateMaster(id: String): Observable<TpagosOnline> {
     return this.http.put<TpagosOnline>(`${environment.rutaAPI + '/tpagosonline/{id}'}`+id,TpagosOnline).pipe(

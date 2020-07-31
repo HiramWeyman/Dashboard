@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import {Router, ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs/Rx'; 
 import { promise } from 'protractor';
+import{TdpagosOnline} from 'src/app/services/dashboard/pagoServicios/tdpagosonline';
 
 declare const Checkout,showLightbox:any
 
@@ -16,7 +17,9 @@ declare const Checkout,showLightbox:any
   styleUrls: ['./shoppingcart.component.scss']
 })
 export class ShoppingcartComponent implements OnInit {
-
+  public pagodet: TdpagosOnline = new TdpagosOnline();
+  valores:  String;
+  det: any[] = [];
   /*
   public loadScript() {
     let body = <HTMLDivElement> document.body;
@@ -109,11 +112,18 @@ export class ShoppingcartComponent implements OnInit {
     this.errorCallbackScript();
 
     this.ecomServices = JSON.parse(sessionStorage.getItem('shoppingCart'));
-        
+  
     this.totalPrice();
     
     this.crearFormulario();
-
+  
+    //console.log(sessionStorage.getItem('shoppingCart'));
+    var items = JSON.parse(sessionStorage.getItem('shoppingCart'));
+    for (var i=0;i<items.length;i++){
+      //console.log(items[i]);
+      this.det.push(items[i].dpago_idingreso+'-'+items[i].Descrip+'-'+items[i].dpago_cantidad+'-'+items[i].dpago_punit);
+    }
+    
   }
 
   get conceptoNovalido(){
@@ -152,8 +162,9 @@ export class ShoppingcartComponent implements OnInit {
   }
 
   deleteItem(dpago_idingreso){
-    console.log("ID: "+dpago_idingreso);
+    //console.log("ID: "+dpago_idingreso);
     var items = JSON.parse(sessionStorage.getItem('shoppingCart'));
+   //console.log(items);
     for (var i=0;i<items.length;i++){
       if (items[i].dpago_idingreso == dpago_idingreso){
         items.splice(i,1);
@@ -161,6 +172,15 @@ export class ShoppingcartComponent implements OnInit {
         this.ecomServices = JSON.parse(sessionStorage.getItem('shoppingCart'));
       }
     }
+    //console.log(items);
+    //console.log(this.det);
+    for (var i=0;i<this.det.length;i++){
+    var splitted = this.det[i].split('-'); 
+    if(splitted[0]==dpago_idingreso){
+      this.det.splice(i,1);
+    }
+    }
+    //console.log(this.det);
     this.totalPrice();
   }
  
@@ -173,6 +193,9 @@ export class ShoppingcartComponent implements OnInit {
       })
     }else{
       this._ps.create(this.forma.value).subscribe(master => {
+
+         this._ps.createDetalle(master.pago_folpago.toString(),this.det).subscribe();
+
         Swal.fire({icon: 'success',title: 'Datos Guardados',text: 'Se te redireccionara al portal de pago',showConfirmButton: false,timer: 3000});
         sessionStorage.removeItem('shoppingCart');
         this._evo.getEvo(this.ID,master.pago_montoapagar).subscribe(

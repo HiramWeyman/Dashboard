@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit {
     )
       */
      this.tipoRol = sessionStorage.getItem('Tipo');
-     console.log(this.tipoRol);
+     //console.log(this.tipoRol);
   }
 
 }

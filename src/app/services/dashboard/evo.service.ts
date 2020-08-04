@@ -14,7 +14,7 @@ export class EvoService {
 
   constructor( private http: HttpClient ) { }
 
-  getEvo(id: string, mount: string) {
+  getEvo(id: string, mount: number) {
     //return this.http.post<Usuarios>(this.urlEndPoint + '/tusuarios/'+login.user+'/'+login.password, login).pipe(
     //return this.http.post(this.urlEndPoint + '/evo/'+evo.session_id+'/'+evo.successIndicator, evo).pipe(
         return this.http.get(this.urlEndPoint + '/evo/'+id+'/'+mount).pipe(

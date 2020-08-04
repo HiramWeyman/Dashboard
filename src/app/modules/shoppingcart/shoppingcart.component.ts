@@ -198,7 +198,8 @@ export class ShoppingcartComponent implements OnInit {
 
         Swal.fire({icon: 'success',title: 'Datos Guardados',text: 'Se te redireccionara al portal de pago',showConfirmButton: false,timer: 3000});
         sessionStorage.removeItem('shoppingCart');
-        this._evo.getEvo(this.ID,master.pago_montoapagar).subscribe(
+        //this._evo.getEvo(this.ID,master.pago_montoapagar).subscribe(
+          this._evo.getEvo(this.ID,this.total).subscribe(
           (variables) => {
             this.session_id = variables.session_id;
             this.successIndicator = variables.successIndicator;

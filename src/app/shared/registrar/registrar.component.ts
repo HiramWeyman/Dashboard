@@ -203,6 +203,8 @@ export class RegistrarComponent implements OnInit {
           //this.cargarUsers();
       },
       error => {
+        console.log(error);
+        
         var splitted = error.error.message.split("["); 
         var splitted2 = splitted[2].split("]"); 
         var constraint = splitted2[0].split("."); 

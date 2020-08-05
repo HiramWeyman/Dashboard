@@ -141,7 +141,7 @@ export class ShoppingcartComponent implements OnInit {
       metodoPago: ['', Validators.required],
       pago_referencia: [this.ID],
       pago_montoapagar: [this.total],
-      pago_userid: [sessionStorage.getItem('Login')],
+      pago_usuaid: [sessionStorage.getItem('Login')],
       pago_estatus: ['P']
     });
 

@@ -20,6 +20,7 @@ export class ShoppingcartComponent implements OnInit {
   public pagodet: TdpagosOnline = new TdpagosOnline();
   valores:  String;
   det: any[] = [];
+  importe=0;
   /*
   public loadScript() {
     let body = <HTMLDivElement> document.body;
@@ -135,7 +136,7 @@ export class ShoppingcartComponent implements OnInit {
   }
 
   crearFormulario(){
-
+  
     this.forma = this.fb.group({
       pago_concepto: ['', [Validators.required,Validators.maxLength(150)]],
       metodoPago: ['', Validators.required],
@@ -174,14 +175,19 @@ export class ShoppingcartComponent implements OnInit {
     }
     //console.log(items);
     //console.log(this.det);
-    for (var i=0;i<this.det.length;i++){
-    var splitted = this.det[i].split('-'); 
-    if(splitted[0]==dpago_idingreso){
-      this.det.splice(i,1);
-    }
-    }
+
     //console.log(this.det);
-    this.totalPrice();
+  this.totalPrice();
+  this.crearFormulario();
+  }
+
+  deleteArray(dpago_idingreso){
+    for (var i=0;i<this.det.length;i++){
+      var splitted = this.det[i].split('-'); 
+      if(splitted[0]==dpago_idingreso){
+        this.det.splice(i,1);
+      }
+      }
   }
  
 

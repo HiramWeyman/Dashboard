@@ -6,7 +6,7 @@
         <div class="selectWrapper col-sm-10" >
         <select formControlName="descuentos" (change)="valuesSelect($event.target.value);">
             <option value="" selected disabled> - Seleccione un descuento - </option>
-            <option *ngFor='let descuento of descuentos' value='{{ descuento.desc_foliodesc }}'>{{ descuento.desc_descrip }}</option>
+            <option *ngFor='let descuento of descuentos' value='{{ descuento.vdes_foldescto }}'>{{ descuento.vdes_descdescrip }}</option>
         </select>
         </div> 
     </div>
@@ -39,7 +39,7 @@
                         <input type="hidden" formControlName="pago_foldescto" value="">
                         <input type="hidden" formControlName="pago_referencia" [(ngModel)]="this.ID">
                         <input type="hidden" formControlName="pago_montoapagar" value="">
-                        <input type="hidden" formControlName="pago_userid" value="">
+                        <input type="hidden" formControlName="pago_usuaid" value="">
                         <input type="hidden" formControlName="pago_estatus" value="P">
                     </td>
                 </tr>

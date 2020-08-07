@@ -33,14 +33,14 @@
 <mat-nav-list>
   
 
-    <ng-container *ngIf="tipoRol === '10' || tipoRol === '20'">
+    <ng-container>
       <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
           <mat-icon>pages</mat-icon> Dashboard
       </a>
       <mat-divider></mat-divider>
     </ng-container>
 
-    <ng-container *ngIf="tipoRol === '10'">
+    <ng-container>
       <h2 matSubheader><strong>Pagos en línea</strong></h2>
       <mat-expansion-panel>
           <mat-expansion-panel-header>

@@ -43,17 +43,27 @@ export class PagoServiciosService {
 
   }
 
-  printReceipt(id): any {
+  printReceipt(id, ref_banco): any {
     const httpOptions = {
       responseType: 'arraybuffer' as 'json'
       // 'responseType'  : 'blob' as 'json'        //This also worked
     };
     
-    return this.http.get<any>(this.urlEndPoint + '/print/' + id, httpOptions);
-     }
+    return this.http.get<any>(this.urlEndPoint + '/print/' + id + '/' + ref_banco, httpOptions);
+  }
+
+  printReceiptDsto(id, ref_banco): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json'
+      // 'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    
+    return this.http.get<any>(this.urlEndPoint + '/printDesc/' + id + '/' + ref_banco, httpOptions);
+  }
 
   create(pagoOnline: TpagosOnline): Observable<TpagosOnline> {
-    //const user = sessionStorage.Login;
+    console.log(pagoOnline);
+    
     return this.http.post<TpagosOnline>(`${environment.rutaAPI + '/tpagosonline'}`, pagoOnline).pipe(
       map((response: any) => {
         //console.log(response);

@@ -17,7 +17,8 @@ declare const Checkout,showLightbox:any
   styleUrls: ['./discount.component.scss']
 })
 export class DiscountComponent implements OnInit {
-
+  det: any[] = [];
+  
   public Checkout() {
     let body = <HTMLDivElement> document.body;
     let script = document.createElement('script');
@@ -80,6 +81,17 @@ export class DiscountComponent implements OnInit {
         this.descuentosdet = descuentosdet
         //console.log(descuentosdet);
         this.totalPrice(this.descuentosdet);
+
+      for (var i=0;i<this.descuentosdet.length;i++){
+      //console.log(items[i]);
+      this.det.push(this.descuentosdet[i].vdes_id+'-'+
+                    this.descuentosdet[i].vdes_concepto+'-'+
+                    this.descuentosdet[i].vdes_cantidad+'-'+
+                    this.descuentosdet[i].vdes_punit+'-'+
+                    this.descuentosdet[i].vdes_a_pagar);
+      }
+      console.log(this.det);
+      
       }
     )
   }
@@ -113,7 +125,7 @@ export class DiscountComponent implements OnInit {
       pago_foldescto: [''],
       pago_referencia: [this.ID],
       pago_montoapagar: [''],
-      pago_userid: [sessionStorage.getItem('Login')],
+      pago_usuaid: [sessionStorage.getItem('Login')],
       metodoPago: ['', Validators.required],
       pago_estatus: ['P']
     });
@@ -127,6 +139,9 @@ export class DiscountComponent implements OnInit {
     }else{
       console.log(this.forma);
       this._ps.create(this.forma.value).subscribe(master => {
+
+        this._ps.createDetalle(master.pago_folpago.toString(),this.det).subscribe();
+
         Swal.fire({icon: 'success',title: 'Datos Guardados',text: 'Se te redireccionara al portal de pago',showConfirmButton: false,timer: 3000});
         sessionStorage.removeItem('shoppingCart');
         this._evo.getEvo(this.ID,this.total).subscribe(

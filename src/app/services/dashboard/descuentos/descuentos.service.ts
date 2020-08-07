@@ -25,7 +25,8 @@ export class DescuentosService {
   }
 
   getDescuento() {
-        return this.http.get(this.urlEndPoint + '/fdesctos/'+sessionStorage.getItem('Ures')+'/'+sessionStorage.getItem('Persona')).pipe(
+        //return this.http.get(this.urlEndPoint + '/fdesctos/'+sessionStorage.getItem('Ures')+'/'+sessionStorage.getItem('Persona')).pipe(
+        return this.http.get(this.urlEndPoint + '/tvdescuentos/'+sessionStorage.getItem('Ures')+'/'+sessionStorage.getItem('Persona')).pipe(
       map((response: any) => {
         return response;
         })

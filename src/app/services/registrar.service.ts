@@ -27,7 +27,7 @@ export class RegistrarService {
 
 
   getTipouser(){
-    return this.http.get(this.urlEndPoint + '/ttipouser/10').pipe(
+    return this.http.get(this.urlEndPoint + '/ttipouser/'+sessionStorage.getItem('Tipo')).pipe(
       map((response: any) => {
         return response;
         })

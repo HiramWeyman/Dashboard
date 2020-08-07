@@ -122,7 +122,7 @@ export class ShoppingcartComponent implements OnInit {
     var items = JSON.parse(sessionStorage.getItem('shoppingCart'));
     for (var i=0;i<items.length;i++){
       //console.log(items[i]);
-      this.det.push(items[i].dpago_idingreso+'-'+items[i].Descrip+'-'+items[i].dpago_cantidad+'-'+items[i].dpago_punit);
+      this.det.push(items[i].dpago_idingreso+'-'+items[i].Descrip+'-'+items[i].dpago_cantidad+'-'+items[i].dpago_punit+'-null');
     }
     
   }

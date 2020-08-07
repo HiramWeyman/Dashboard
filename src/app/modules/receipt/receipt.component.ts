@@ -23,13 +23,23 @@ export class ReceiptComponent implements OnInit {
 
   }
 
-  printInvoice(id) {
-    this._ps.printReceipt(id).subscribe((response) => {
+  printInvoice(id,ref_banco,bandera) {
+    
+    if (bandera==null){
+      this._ps.printReceipt(id,ref_banco).subscribe((response) => {
   
-      const file = new Blob([response], { type: 'application/pdf' });
-      const fileURL = URL.createObjectURL(file);
-      window.open(fileURL);
-    });
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
+    }else{
+      this._ps.printReceiptDsto(id,ref_banco).subscribe((response) => {
+  
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
+    }
   }
 
 }

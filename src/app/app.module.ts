@@ -16,13 +16,15 @@ import { DiscountComponent } from './modules/discount/discount.component';
 
 import localeEsMx from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
+import { ListausuarioComponent } from './modules/listausuario/listausuario.component';
 registerLocaleData(localeEsMx, 'es-Mx');
 
 @NgModule({
   declarations: [
     AppComponent,
     ShoppingcartComponent,
-    DiscountComponent
+    DiscountComponent,
+    ListausuarioComponent
   ],
   imports: [
     BrowserModule,

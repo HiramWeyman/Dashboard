@@ -1,0 +1,32 @@
+<div class="alert alert-dark" role="alert">
+ <table class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Usuario</th>
+            <th>Tipo</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Ures</th>
+            <th>Nivel</th>
+            <th>Carrera</th>
+            <th>Persona</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tu of tvusuario">
+                <td style="text-align: center;">{{ tu.userid }}</td>
+                <td style="text-align: center;">{{ tu.usuario }}</td>
+                <td style="text-align: center;">{{ tu.tipo_usuario }}</td>
+                <td style="text-align: center;">{{ tu.nombre }}</td>
+                <td style="text-align: center;">{{ tu.email }}</td>
+                <td style="text-align: center;">{{ tu.telefono }}</td>
+                <td style="text-align: center;">{{ tu.unidad_responsable }}</td>
+                <td style="text-align: center;">{{ tu.nivel }}</td>
+                <td style="text-align: center;">{{ tu.carrera }}</td>
+                <td style="text-align: center;">{{ tu.persona }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

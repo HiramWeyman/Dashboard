@@ -40,7 +40,7 @@
       <mat-divider></mat-divider>
     </ng-container>
 
-    <ng-container>
+    <ng-container *ngIf="tipoRol != '70'">
       <h2 matSubheader><strong>Pagos en línea</strong></h2>
       <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -56,4 +56,6 @@
       <mat-divider></mat-divider>
   </ng-container>
   
+  <a *ngIf="tipoRol === '70'" mat-list-item routerLinkActive="list-item-active" routerLink="/listausuario"><mat-icon>supervised_user_circle</mat-icon> Lista de usuarios</a>
+
 </mat-nav-list>

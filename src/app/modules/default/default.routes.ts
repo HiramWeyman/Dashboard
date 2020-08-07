@@ -8,6 +8,7 @@ import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { ReceiptComponent } from '../receipt/receipt.component';
 import { ShoppingcartComponent } from '../shoppingcart/shoppingcart.component';
 import { DiscountComponent } from '../discount/discount.component';
+import { ListausuarioComponent } from '../listausuario/listausuario.component';
 const pagesRoutes: Routes = [
 	{
 		path: '',
@@ -18,7 +19,8 @@ const pagesRoutes: Routes = [
 			{ path: 'posts', component: PostsComponent },
 			{ path: 'recibos', component: ReceiptComponent },
 			{ path: 'shoppingcart', component: ShoppingcartComponent },
-			{ path: 'descuentos', component: DiscountComponent }
+			{ path: 'descuentos', component: DiscountComponent },
+			{ path: 'listausuario', component: ListausuarioComponent }
 		]
 	}
 ];

@@ -55,8 +55,8 @@
           var ID = sessionStorage.getItem('MasterID');
           console.log(ID);
           $.ajax({
-                    url: 'http://localhost:8090/api/tpagosonline/'+ID, 
-                    //url: 'http://192.168.1.190:8090/api/tpagosonline/'+ID, 
+                    //url: 'http://localhost:8090/api/tpagosonline/'+ID, 
+                    url: 'http://192.168.1.190:8090/api/tpagosonline/'+ID, 
                     type: 'PUT',   //type is any HTTP method
                     data: {'id':ID},      //Data as js object
                     success: function () {

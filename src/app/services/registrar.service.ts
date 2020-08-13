@@ -59,6 +59,14 @@ export class RegistrarService {
     );
   }
 
+  getBuscaNombre(tipoUser: string, matricula: string){
+    return this.http.get(`${environment.rutaAPI}/buscaNombre/${tipoUser}/${matricula}`).pipe(
+      map((response: any) => {
+        return response;
+        })
+      );
+  }
+
   getUserName(user: string) {
     return this.http.post(`${environment.rutaAPI}/tusuarios/${user}`,user).pipe(
       map((response: any) => {

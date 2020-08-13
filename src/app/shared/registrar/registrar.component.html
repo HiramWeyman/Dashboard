@@ -63,7 +63,15 @@
                                         <small *ngIf="matriculaNovalido" class="text-danger">
                                             Ingrese una matirucla o numero de persona
                                         </small>
-                                        <input type="text" class="form-control" formControlName="usua_persona" maxlength="8" placeholder="Matricula o No. Persona" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [class.is-invalid]="matriculaNovalido">
+                                        <input  type="text" 
+                                                class="form-control" 
+                                                formControlName="usua_persona" 
+                                                maxlength="8" 
+                                                placeholder="Matricula o No. Persona" 
+                                                autocomplete="off" 
+                                                oninput="this.value = this.value.toUpperCase()" 
+                                                [class.is-invalid]="matriculaNovalido"
+                                                (blur)="buscaNombre()">
                                     </div>
                                     <div class="col-lg-12">
                                         <small *ngIf="nombreNovalido" class="text-danger">

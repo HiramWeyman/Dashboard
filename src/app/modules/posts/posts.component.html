@@ -29,8 +29,9 @@
       Ingrese una cantidad
     </small>
     <input class="form-control" formControlName="cantidad" type="number" max="999" min="1" value="1" [class.is-invalid]="cantidadNovalido" (click)="suma()" (blur)="suma()"><br>
-    <strong>Monto a Pagar</strong>
-    <h4>{{ this.monto_Select | currency:"MXN":"symbol" }}</h4>
+    <strong>Monto a Pagar</strong><br>
+    <input *ngIf="this.monto_Select === 1" class="form-control" value="{{ this.monto_Select }}" (blur)="sumaTecleada($event.target.value)">
+    <h4 *ngIf="this.monto_Select != 1">{{ this.monto_Select | currency:"MXN":"symbol" }}</h4>
   </div>
   <div class="col-sm-4">
     <button class="btn btn-blue btn-sm" [disabled]="!forma.valid" (click)="add()">Añadir al carrito</button>

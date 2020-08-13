@@ -70,6 +70,10 @@ export class PostsComponent implements OnInit {
     this.monto_Select = splitted[1] * Number(this.forma.get('cantidad').value);
   }
 
+  sumaTecleada(ValorTecleado){
+    this.monto_Select = ValorTecleado;
+  }
+
   get cantidadNovalido(){
     return this.forma.get('cantidad').invalid && this.forma.get('cantidad').touched
   }

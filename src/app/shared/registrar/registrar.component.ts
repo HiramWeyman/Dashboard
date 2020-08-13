@@ -229,4 +229,27 @@ export class RegistrarComponent implements OnInit {
     
   }
 
+  buscaNombre(){
+    if(this.forma.get('usua_tipo_usuario').value === ""){
+      Swal.fire({title: 'Antes de ingresar matricula o número de persona, selecciona un tipo de usuario previamente',text: '',icon: 'warning'});
+      this.forma.get('usua_persona').setValue("");
+    }else{
+      this.subscription = this._reg.getBuscaNombre(this.forma.get('usua_tipo_usuario').value,this.forma.get('usua_persona').value)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.forma.get('usua_nombre').setValue(data.Nombre);
+        if (data.Nombre === null){
+          Swal.fire({title: 'Matrícula o número de persona '+this.forma.get('usua_persona').value+' no encontrada',text:'', icon: 'error'});
+          this.forma.get('usua_persona').setValue("");
+        }
+      }),
+        error=>{
+        Swal.fire({
+          title: 'ERROR!!!',
+          text: error.error.message,
+          icon: 'error'});
+      }
+    }
+  }
+
 }

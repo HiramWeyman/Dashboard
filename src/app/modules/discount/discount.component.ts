@@ -67,6 +67,7 @@ export class DiscountComponent implements OnInit {
     this._ds.getDescuento().subscribe(
       (descuentos) => {
         this.descuentos = descuentos
+        //console.log(descuentos);
       }
     )
 
@@ -90,7 +91,7 @@ export class DiscountComponent implements OnInit {
                     this.descuentosdet[i].vdes_punit+'-'+
                     this.descuentosdet[i].vdes_a_pagar);
       }
-      console.log(this.det);
+      //console.log(this.det);
       
       }
     )
